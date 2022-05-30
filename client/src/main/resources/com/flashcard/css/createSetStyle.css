@@ -1,0 +1,45 @@
+#setNameLabel{
+    -fx-font-size: 40;
+    -fx-pref-height: 100;
+    -fx-pref-width: 300;
+}
+#rootVBox{
+    -fx-pref-width: 1000;
+    -fx-pref-height: 600;
+}
+
+.label{
+    -fx-font-size: 15;
+    -fx-padding: 2 10 2 2;
+}
+.secondSentenceLabel{
+    -fx-padding: 2 10 2 70;
+}
+
+#addSentencesScrollPane {
+    -fx-pref-width: 1000;
+    -fx-pref-height: 400;
+    -fx-hbar-policy: NEVER;
+    /*-fx-vbar-policy: Always;*/
+    /*-fx-vbar-policy: AS_needed;*/
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+}
+
+.sentencesHBox {
+    -fx-alignment: center;
+}
+
+#addSentencesVBox{
+    -fx-spacing: 30;
+}
+#buttonsHBox{
+    -fx-pref-width: 1000;
+    -fx-spacing: 150;
+    -fx-padding: 20;
+}
+
+#buttonsHBox .button{
+    -fx-pref-width: 100;
+    -fx-spacing: 150;
+}

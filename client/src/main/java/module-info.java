@@ -6,4 +6,6 @@ module com.flashcard.clientflashcard {
 
     opens com.flashcard to javafx.fxml;
     exports com.flashcard;
+    exports com.flashcard.controller;
+    opens com.flashcard.controller to javafx.fxml;
 }
