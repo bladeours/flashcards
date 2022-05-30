@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane fx:id="root" prefHeight="600.0" prefWidth="1000.0" stylesheets="@menuStyle.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flashcard.MenuController">
+   <VBox fx:id="vBoxLeft" prefHeight="600.0" prefWidth="300.0" spacing="30.0">
+      <children>
+         <Button fx:id="createNewButton" mnemonicParsing="false" onAction="#createNewSet" text="Create new" />
+         <Button fx:id="scoresButton" mnemonicParsing="false" onAction="#createNewSet" text="Scores" />
+         <Button fx:id="changeUserButton" mnemonicParsing="false" text="Change user" />
+         <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exit" text="Exit" />
+      </children>
+      <padding>
+         <Insets left="60.0" top="60.0" />
+      </padding>
+   </VBox>
+   <HBox fx:id="hBoxRight" layoutX="300.0" onMouseClicked="#createNewSet" prefHeight="600.0" prefWidth="700.0" />
+</Pane>

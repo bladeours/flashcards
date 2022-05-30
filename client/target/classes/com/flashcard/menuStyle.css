@@ -1,0 +1,18 @@
+#root{
+    -fx-background-color: yellow;
+}
+
+#vBoxLeft{
+    -fx-background-color: #ffffff;
+}
+
+.button{
+    -fx-pref-width: 180;
+    -fx-pref-height: 40;
+}
+
+#hBoxRight{
+    -fx-background-color: #837d7d;
+}
+
+
