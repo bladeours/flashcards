@@ -9,7 +9,11 @@ module com.flashcard {
     requires spring.context;
     exports com.flashcard;
     exports com.flashcard.controller;
+//    exports com.flashcard.service to spring.beans;
 
-    
+//    opens com.flashcard.service to spring.core;
     opens com.flashcard.controller to javafx.fxml;
+    exports com.flashcard.event;
+    exports com.flashcard.listener;
+    opens com.flashcard.listener to javafx.fxml;
 }

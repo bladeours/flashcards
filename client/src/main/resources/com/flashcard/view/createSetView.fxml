@@ -7,7 +7,7 @@
 
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <Pane fx:id="root" prefHeight="600" prefWidth="1000.0" stylesheets="@../css/createSetStyle.css" xmlns="http://javafx.com/javafx/16"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flashcard.controller.createSetController">
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flashcard.controller.CreateSetController">
    <VBox fx:id="rootVBox" alignment="TOP_CENTER">
        <Label fx:id="setNameLabel" alignment="CENTER" text="Set name"/>
        <HBox alignment="TOP_CENTER">

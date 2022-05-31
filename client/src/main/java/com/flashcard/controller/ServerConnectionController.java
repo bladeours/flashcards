@@ -1,7 +1,6 @@
 package com.flashcard.controller;
 
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -9,15 +8,15 @@ import java.io.BufferedWriter;
 import java.net.Socket;
 
 @Service
-public class DatabaseController {
+public class ServerConnectionController {
 
     private Socket socket;
     private BufferedWriter bw;
     private BufferedReader br;
     private int i = 0;
 
-    public DatabaseController() {
-        System.out.println("database constructor");
+    public ServerConnectionController() {
+        System.out.println("ServerConnectionController constructor");
     }
 
     public  void test(){
