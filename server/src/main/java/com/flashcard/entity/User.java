@@ -16,11 +16,12 @@ public class User {
     @Column(name="name")
     private String name;
     @OneToMany(mappedBy = "user",
-    cascade = {CascadeType.PERSIST,CascadeType.PERSIST,CascadeType.DETACH,CascadeType.REFRESH})
-    private List<Flashcard> flashcards;
-    @OneToMany(mappedBy = "user",
             cascade = {CascadeType.PERSIST,CascadeType.PERSIST,CascadeType.DETACH,CascadeType.REFRESH})
     private List<Score> scores ;
+
+    @OneToMany(mappedBy = "user",
+            cascade = {CascadeType.PERSIST,CascadeType.PERSIST,CascadeType.DETACH,CascadeType.REFRESH})
+    private List<Set> sets;
     public User() {
     }
 
@@ -36,13 +37,6 @@ public class User {
         this.name = name;
     }
 
-    public List<Flashcard> getFlashcards() {
-        return flashcards;
-    }
-
-    public void setFlashcards(List<Flashcard> flashcards) {
-        this.flashcards = flashcards;
-    }
 
     public int getId() {
         return id;
@@ -60,22 +54,21 @@ public class User {
         this.name = name;
     }
 
+    public List<Set> getSets() {
+        return sets;
+    }
+
+    public void setSets(List<Set> sets) {
+        this.sets = sets;
+    }
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", flashcards=" + flashcards +
                 '}';
     }
 
-    public void add(Flashcard tempFlashcard){
-        if(flashcards == null){
-            flashcards = new ArrayList<>();
-        }
-        flashcards.add(tempFlashcard);
-        tempFlashcard.setUser(this);
-    }
 
     public void add(Score tempScore){
         if(scores == null){
@@ -83,5 +76,13 @@ public class User {
         }
         scores.add(tempScore);
         tempScore.setUser(this);
+    }
+
+    public void add(Set tempSet){
+        if(sets == null){
+            sets = new ArrayList<>();
+        }
+        sets.add(tempSet);
+        tempSet.setUser(this);
     }
 }

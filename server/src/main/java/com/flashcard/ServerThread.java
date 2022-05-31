@@ -1,5 +1,6 @@
 package com.flashcard;
 
+import com.flashcard.controller.DatabaseController;
 import com.flashcard.entity.Score;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -9,9 +10,10 @@ import java.net.Socket;
 
 public class ServerThread extends Thread{
         private final Socket socket;
-
+        private final DatabaseController databaseController;
     public ServerThread(Socket socket) {
         this.socket = socket;
+        databaseController = new DatabaseController();
     }
 
     @Override
@@ -33,7 +35,7 @@ public class ServerThread extends Thread{
                             sendToClient(bw,"wszystko git zioms");
                             break;
                     case "giveColors":
-                        System.out.println("request = giveColors");
+                        System.out.println(databaseController.getColor());
                         sendToClient(bw,"wszystko git zioms");
                         break;
 //                    case "lol" -> System.out.println("Tescior udany!");

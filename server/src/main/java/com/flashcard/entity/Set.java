@@ -21,6 +21,12 @@ public class Set {
     @OneToMany(mappedBy = "set",
             cascade = {CascadeType.PERSIST,CascadeType.PERSIST,CascadeType.DETACH,CascadeType.REFRESH})
     private List<Score> scores;
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.PERSIST,CascadeType.DETACH,CascadeType.REFRESH})
+    @JoinColumn(name="user_id")
+    private User user;
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.PERSIST,CascadeType.DETACH,CascadeType.REFRESH})
+    @JoinColumn(name="color_id")
+    private Color color;
 
     public Set() {
     }
@@ -60,6 +66,22 @@ public class Set {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     @Override

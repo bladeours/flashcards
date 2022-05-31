@@ -11,9 +11,7 @@ public class Flashcard {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "flashcard_generator")
     @Column(name="id")
     private int id;
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.PERSIST,CascadeType.DETACH,CascadeType.REFRESH})
-    @JoinColumn(name="user_id")
-    private User user;
+
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.PERSIST,CascadeType.DETACH,CascadeType.REFRESH})
     @JoinColumn(name="set_id")
     private Set set;
@@ -35,13 +33,6 @@ public class Flashcard {
         this.secondSentence = secondSentence;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public int getId() {
         return id;
@@ -95,7 +86,6 @@ public class Flashcard {
     public String toString() {
         return "Flashcard{" +
                 "id=" + id +
-                ", user=" + user +
                 ", set=" + set +
                 ", firstSentence='" + firstSentence + '\'' +
                 ", secondSentence='" + secondSentence + '\'' +
