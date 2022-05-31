@@ -4,6 +4,7 @@ import com.flashcard.event.ShowViewEvent;
 //import com.flashcard.listener.ShowCreateSetListener;
 import com.flashcard.listener.ShowViewListener;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -36,11 +37,14 @@ public class MenuController implements Initializable {
 
 
     private ApplicationContext applicationContext;
+    private final CreateSetController createSetController;
 
 
     private final ShowViewListener stageListener;
     private final ServerConnectionController serverConnectionController;
-    public MenuController(ShowViewListener stageListener, ServerConnectionController serverConnectionController) {
+    public MenuController(CreateSetController createSetController, ShowViewListener stageListener,
+                          ServerConnectionController serverConnectionController) {
+        this.createSetController = createSetController;
         this.stageListener = stageListener;
         System.out.println("MenuController constructor");
         this.serverConnectionController = serverConnectionController;
@@ -51,13 +55,18 @@ public class MenuController implements Initializable {
         this.scoresButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                serverConnectionController.test();
+                try {
+                    createSetController.saveSet();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
     @FXML
     private void createNewSet() throws IOException {
+
         stageListener.getApplicationContext().publishEvent(new ShowViewEvent((Stage) root.getScene().getWindow()
                 ,"/com/flashcard/view/createSetView.fxml"));
 
@@ -68,18 +77,5 @@ public class MenuController implements Initializable {
         Platform.exit();
     }
 
-    public void setApplicationContext(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
 
-    static class StageReadyEvent extends ApplicationEvent {
-
-        public StageReadyEvent(Stage source){
-            super(source);
-        }
-
-        public Stage getStage(){
-            return (Stage) getSource();
-        }
-    }
 }

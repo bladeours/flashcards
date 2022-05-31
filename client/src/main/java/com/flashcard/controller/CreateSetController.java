@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -47,6 +48,12 @@ public class CreateSetController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ObservableList<String> colors;
+        try {
+            colors = serverConnectionController.getColors();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         ObservableList<String> options =
                 FXCollections.observableArrayList(
                         "1",
@@ -101,9 +108,9 @@ public class CreateSetController implements Initializable {
     }
 
     @FXML
-    public void saveSet(){
+    public void saveSet() throws IOException {
         System.out.println("saveSet() method");
-        serverConnectionController.test();
+//        serverConnectionController.test();
         //TODO
     }
 

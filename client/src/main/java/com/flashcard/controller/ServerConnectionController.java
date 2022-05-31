@@ -1,11 +1,16 @@
 package com.flashcard.controller;
 
 
+import com.google.gson.JsonObject;
+import javafx.collections.ObservableList;
+import javafx.fxml.Initializable;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import java.io.*;
 import java.net.Socket;
+import java.net.URL;
+import java.net.UnknownHostException;
+import java.util.ResourceBundle;
 
 @Service
 public class ServerConnectionController {
@@ -17,21 +22,45 @@ public class ServerConnectionController {
 
     public ServerConnectionController() {
         System.out.println("ServerConnectionController constructor");
+        try {
+            socket = new Socket("localhost",7080);
+            bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            System.out.println("Connected properly");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            //TODO handle connection error
+        }
+
     }
 
-    public  void test(){
-        i++;
-        System.out.println("udalo sie! i=" + i);
+    public  void test() {
+        JsonObject request = new JsonObject();
+        request.addProperty("action","test");
+        try {
+            bw.write(request.toString());
+            bw.newLine();
+            bw.flush();
+            System.out.println(br.readLine());
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
     }
-    //       Socket socket = new Socket("localhost",7080);
-//        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-//        BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//
-//        JsonObject request = new JsonObject();
-//        request.addProperty("action","test");
-//        bw.write(request.toString());
-//        bw.newLine();
-//        bw.flush();
-//        System.out.println(br.readLine());
+
+    public ObservableList<String> getColors() throws IOException {
+        System.out.println("getColors()");
+        JsonObject request = new JsonObject();
+        request.addProperty("action","giveColors");
+        sendToServer(bw,request.toString());
+        return null;
+    }
+
+    private void sendToServer(BufferedWriter bw,String request) throws IOException {
+        bw.write(request);
+        bw.newLine();
+        bw.flush();
+    }
 
 }
