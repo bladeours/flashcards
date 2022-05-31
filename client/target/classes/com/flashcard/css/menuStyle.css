@@ -1,8 +1,8 @@
 #root{
-    -fx-background-color: yellow;
+    /*-fx-background-color: yellow;*/
 }
 
-#vBoxLeft{
+#leftVBox{
     -fx-background-color: #ffffff;
 }
 
@@ -11,8 +11,11 @@
     -fx-pref-height: 40;
 }
 
-#hBoxRight{
+#rightHBox{
     -fx-background-color: #837d7d;
 }
 
+#colorLabel{
+    -fx-padding: 0 15 0 0;
+}
 

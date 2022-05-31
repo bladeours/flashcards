@@ -1,5 +1,5 @@
 #root{
-    -fx-background-color: yellow;
+    /*-fx-background-color: yellow;*/
 }
 
 #leftVBox{
@@ -15,4 +15,7 @@
     -fx-background-color: #837d7d;
 }
 
+#colorLabel{
+    -fx-padding: 0 15 0 0;
+}
 
