@@ -1,2 +1,4 @@
-package com.flashcard.controller;public class databaseController {
+package com.flashcard.controller;
+public class databaseController {
+
 }
