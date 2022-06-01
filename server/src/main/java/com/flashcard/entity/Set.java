@@ -36,6 +36,11 @@ public class Set {
         this.name = name;
     }
 
+    public Set(String name, Color color) {
+        this.name = name;
+        this.color = color;
+    }
+
     public List<Score> getScores() {
         return scores;
     }
@@ -89,7 +94,7 @@ public class Set {
         return "Set{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", flashcards=" + flashcards +
+                ", color=" + color +
                 '}';
     }
 

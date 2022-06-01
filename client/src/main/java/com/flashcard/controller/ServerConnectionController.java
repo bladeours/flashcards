@@ -1,15 +1,21 @@
 package com.flashcard.controller;
 
 
+import com.flashcard.repository.Color;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 @Service
@@ -54,8 +60,23 @@ public class ServerConnectionController {
         JsonObject request = new JsonObject();
         request.addProperty("action","giveColors");
         sendToServer(bw,request.toString());
-        return null;
+        String respond = br.readLine();
+        Gson gson = new Gson();
+        Type colorsListType = new TypeToken<ArrayList<Color>>(){}.getType();
+        ArrayList<Color> colorsArrayList = gson.fromJson(respond,colorsListType);
+        ObservableList<String> colors =  FXCollections.observableArrayList();
+        for(Color color: colorsArrayList){
+            colors.add(color.getCode());
+        }
+
+
+        return colors;
     }
+
+    public void sendNewSet(String setJson) throws IOException {
+        sendToServer(bw,setJson);
+    }
+
 
     private void sendToServer(BufferedWriter bw,String request) throws IOException {
         bw.write(request);

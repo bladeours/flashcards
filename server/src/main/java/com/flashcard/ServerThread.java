@@ -35,8 +35,10 @@ public class ServerThread extends Thread{
                             sendToClient(bw,"wszystko git zioms");
                             break;
                     case "giveColors":
-                        System.out.println(databaseController.getColor());
-                        sendToClient(bw,"wszystko git zioms");
+                        sendToClient(bw,databaseController.getColors());
+                        break;
+                    case "createSet":
+                        databaseController.createSet(requestJson);
                         break;
 //                    case "lol" -> System.out.println("Tescior udany!");
 //                    default -> System.out.println("default");

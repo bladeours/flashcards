@@ -1,7 +1,8 @@
-#setNameLabel{
+#setNameTextField{
     -fx-font-size: 40;
     -fx-pref-height: 100;
     -fx-pref-width: 300;
+    -fx-max-width: 300;
 }
 #rootVBox{
     -fx-pref-width: 1000;

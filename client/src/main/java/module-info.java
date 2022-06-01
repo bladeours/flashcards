@@ -13,7 +13,7 @@ module com.flashcard {
 
 //    opens com.flashcard.service to spring.core;
     opens com.flashcard.controller to javafx.fxml;
-    exports com.flashcard.event;
+    opens com.flashcard.repository to com.google.gson;
     exports com.flashcard.listener;
     opens com.flashcard.listener to javafx.fxml;
 }
