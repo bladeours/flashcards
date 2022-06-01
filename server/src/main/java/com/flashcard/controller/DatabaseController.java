@@ -67,33 +67,25 @@ public class DatabaseController {
             System.out.println("sentences: "+sentences);
 
             session.beginTransaction();
-
+            //get color id
             Query query = session.createQuery("from Color where code =:code ",Color.class)
                     .setParameter("code", setJson.get("color").getAsString());
             Color color = (Color) query.uniqueResult();
 
             Set set = new Set(setJson.get("setName").getAsString(),color);
 
-
-
             ArrayList<Flashcard> flashcards = new ArrayList<>();
             for(Map<String, String> sentence : sentences) {
-                    Flashcard flashcard = new Flashcard();
-                    flashcard.setFirstSentence(sentence.get("firstSentence"));
-                    flashcard.setSecondSentence(sentence.get("secondSentence"));
+                    Flashcard flashcard = new Flashcard(set,sentence.get("firstSentence"),
+                            sentence.get("secondSentence"));
                     flashcards.add(flashcard);
-                    flashcard.setSet(set);
                 }
             set.setFlashcards(flashcards);
-//            System.out.println(set);
-
             session.persist(set);
-
             session.getTransaction(). commit();
         }
         finally {
             session.close();
-
         }
 
     }

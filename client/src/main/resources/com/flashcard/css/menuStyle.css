@@ -11,11 +11,46 @@
     -fx-pref-height: 40;
 }
 
-#rightHBox{
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+#rootRightScrollPane {
+    -fx-hbar-policy: NEVER;
+    -fx-border-width: 0;
     -fx-background-color: #837d7d;
 }
 
-#colorLabel{
-    -fx-padding: 0 15 0 0;
+.rowSentenceHBox {
+    -fx-background-color: transparent;
+    -fx-padding: 20;
+    -fx-border-color: green;
+    -fx-border-width: 2;
+    -fx-spacing: 55;
+}
+
+.rootSetsVBox {
+    -fx-pref-height: 150;
+    -fx-max-height: 150;
+    -fx-pref-width: 300;
+    -fx-max-width: 300;
+    -fx-background-radius: 10;
+    -fx-background-color: red;
+    -fx-padding: 7;
+}
+
+.setNameLabel{
+    -fx-font-size: 25;
+}
+
+.setButtonsHBox {
+    -fx-spacing: 10;
+    -fx-padding: 60 5 5 5;
+    -fx-alignment: CENTER;
+}
+
+.setButtons {
+    -fx-pref-width: 70;
+    -fx-pref-height: 20;
 }
 

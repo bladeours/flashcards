@@ -16,4 +16,5 @@ module com.flashcard {
     opens com.flashcard.repository to com.google.gson;
     exports com.flashcard.listener;
     opens com.flashcard.listener to javafx.fxml;
+    exports com.flashcard.service;
 }

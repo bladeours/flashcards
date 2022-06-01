@@ -8,12 +8,31 @@
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flashcard.controller.MenuController">
    <VBox fx:id="LeftVBox" prefHeight="600.0" prefWidth="300.0" spacing="30.0">
          <Button fx:id="createNewButton" mnemonicParsing="false" onAction="#createNewSet" text="Create new" />
-         <Button fx:id="scoresButton" mnemonicParsing="false" text="Scores" />
+         <Button fx:id="scoresButton" mnemonicParsing="false" text="Scores" onAction="#test"/>
          <Button fx:id="changeUserButton" mnemonicParsing="false" text="Change user" />
          <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exit" text="Exit" />
       <padding>
          <Insets left="60.0" top="60.0" />
       </padding>
    </VBox>
-   <HBox fx:id="rightHBox" layoutX="300.0" onMouseClicked="#createNewSet" prefHeight="600.0" prefWidth="700.0" />
+    <ScrollPane fx:id="rootRightScrollPane" layoutX="300.0" prefHeight="600.0" prefWidth="700.0">
+        <VBox fx:id="rootRightVBox">
+<!--            <HBox styleClass="rowSentenceHBox">-->
+<!--                <VBox styleClass="rootSetsVBox" alignment="TOP_CENTER">-->
+<!--                    <Label text="Set name" styleClass="setNameLabel"/>-->
+<!--                    <HBox styleClass="setButtonsHBox">-->
+<!--                        <Button text="Edit" styleClass="setButtons"/>-->
+<!--                        <Button text="Add" styleClass="setButtons"/>-->
+<!--                        <Button text="Remove" styleClass="setButtons"/>-->
+<!--                    </HBox>-->
+<!--                </VBox>-->
+
+
+<!--            </HBox>-->
+        </VBox>
+
+
+    </ScrollPane>
+
+
 </Pane>

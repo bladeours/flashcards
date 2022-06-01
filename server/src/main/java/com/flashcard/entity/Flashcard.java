@@ -33,6 +33,11 @@ public class Flashcard {
         this.secondSentence = secondSentence;
     }
 
+    public Flashcard(Set set, String firstSentence, String secondSentence) {
+        this.set = set;
+        this.firstSentence = firstSentence;
+        this.secondSentence = secondSentence;
+    }
 
     public int getId() {
         return id;

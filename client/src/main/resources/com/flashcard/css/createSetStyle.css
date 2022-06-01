@@ -21,8 +21,6 @@
     -fx-pref-width: 1000;
     -fx-pref-height: 400;
     -fx-hbar-policy: NEVER;
-    /*-fx-vbar-policy: Always;*/
-    /*-fx-vbar-policy: AS_needed;*/
     -fx-border-width: 0;
     -fx-background-color: transparent;
 }
