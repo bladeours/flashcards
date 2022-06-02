@@ -73,46 +73,9 @@ public class MenuController implements Initializable {
     @FXML
     private void test(){
 
-        HBox rowSentenceHBox;
+        HBox rowSentenceHBox = menuService.chooseHBoxToSetTiles(rootRightVBox);
 
-        int rootSize = rootRightVBox.getChildren().size();
-        HBox tempHBox = new HBox();
-        if(rootSize>0) {
-            tempHBox = (HBox) rootRightVBox.getChildren().get(rootSize - 1);
-        }
-        int size = tempHBox.getChildren().size();
-        System.out.println(size);
-        if(size %2 == 0){
-            rowSentenceHBox = new HBox();
-            rowSentenceHBox.getStyleClass().add("rowSentenceHBox");
-            rootRightVBox.getChildren().add(rowSentenceHBox);
-        }else{
-            rowSentenceHBox = (HBox) rootRightVBox.getChildren().get(rootSize-1);
-        }
-
-
-
-        VBox rootSetsVBox = new VBox();
-        rootSetsVBox.setAlignment(Pos.TOP_CENTER);
-        rootSetsVBox.getStyleClass().add("rootSetsVBox");
-
-        Label setNameLabel = new Label("Set name");
-        setNameLabel.getStyleClass().add("setNameLabel");
-
-        HBox setButtonsHBox = new HBox();
-        setButtonsHBox.getStyleClass().add("setButtonsHBox");
-        rootSetsVBox.getChildren().addAll(setNameLabel,setButtonsHBox);
-
-        Button editButton = new Button("Edit");
-        editButton.getStyleClass().add("setButtons");
-        Button addButton = new Button("Add");
-        addButton.getStyleClass().add("setButtons");
-        Button removeButton = new Button("Remove");
-        removeButton.getStyleClass().add("setButtons");
-
-        setButtonsHBox.getChildren().addAll(editButton, addButton, removeButton);
-
-        rowSentenceHBox.getChildren().add(rootSetsVBox);
+        rowSentenceHBox.getChildren().add(menuService.createSetTile("nazwa "," #696969"));
 
         //        rootRightVBox.getChildren().add()
     }
