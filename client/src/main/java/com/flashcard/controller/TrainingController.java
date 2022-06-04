@@ -50,8 +50,29 @@ public class TrainingController implements Initializable {
     public void createFlashcardView(int setId, String setName) throws IOException {
         sentenceNumber = 0;
         flashcards = serverConnectionController.getFlashcardsForSet(String.valueOf(setId));
+        System.out.println("flashcard przed modyfikacja: "+flashcards);
+
+        if(fromFirst){
+            flashcards.removeIf(flashcard -> flashcard.getFirstCorrect() > 0);
+        }else{
+            flashcards.removeIf(flashcard -> flashcard.getSecondCorrect() > 0);
+
+        }
+
+//        for(FlashcardDTO flashcard: flashcards){
+//         if(fromFirst){
+//             if(flashcard.getFirstCorrect() == 1){
+//                 flashcards.remove(flashcard);
+//             }
+//         }else{
+//             if(flashcard.getSecondCorrect() == 1){
+//                 flashcards.remove(flashcard);
+//             }
+//         }
+//        }
         Collections.shuffle(flashcards);
-        System.out.println(flashcards);
+
+        System.out.println("flashcard po modyfikacja: "+flashcards);
         setNameLabel.setText(setName);
         sentenceLabel.setText(choseFirstSentence());
 
@@ -101,10 +122,10 @@ public class TrainingController implements Initializable {
         if(sentenceNumber >= 0 && sentenceNumber < flashcards.size()) {
             if(fromFirst){
                 flashcards.get(sentenceNumber).setFirstCorrect(1);
-//                serverConnectionController.updateCorrectSentence("first",flashcards.get(sentenceNumber).getId());
+                serverConnectionController.updateCorrectSentence("first",flashcards.get(sentenceNumber).getId());
             }else{
                 flashcards.get(sentenceNumber).setSecondCorrect(1);
-//                serverConnectionController.updateCorrectSentence("second",flashcards.get(sentenceNumber).getId());
+                serverConnectionController.updateCorrectSentence("second",flashcards.get(sentenceNumber).getId());
 
             }
             System.out.println(flashcards);

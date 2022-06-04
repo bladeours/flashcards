@@ -1,0 +1,59 @@
+#backToMenuHBox{
+    -fx-padding: 10;
+}
+
+#scoresLabel{
+    -fx-font-size: 40;
+}
+
+.scroll-pane{
+    -fx-hbar-policy: NEVER;
+    -fx-border-width: 0;
+    /*-fx-background-color: #837d7d;*/
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.setNameLabel{
+    -fx-font-size: 20;
+    /*-fx-border-width: 1;*/
+    /*-fx-border-color: yellow;*/
+    /*-fx-padding: 5 50 5 5;*/
+    -fx-padding: 5;
+    -fx-alignment: CENTER_LEFT;
+    -fx-pref-width: 150;
+}
+
+#setNameTitleLabel{
+    -fx-pref-width: 170;
+}
+
+.scoreLabel{
+    -fx-font-size: 20;
+    -fx-pref-width: 70;
+
+}
+
+.secondScoreLabel{
+    -fx-font-size: 20;
+    -fx-pref-width: 100;
+    -fx-alignment: CENTER_RIGHT;
+    -fx-padding: 5 5 5 40;
+    /*-fx-border-width: 1;*/
+    /*-fx-border-color: red;*/
+
+}
+.firstScoreLabel{
+    -fx-font-size: 20;
+    -fx-pref-width: 80;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 5;
+    /*-fx-border-width: 1;*/
+    /*-fx-border-color: green;*/
+}
+
+.resetButton{
+    -fx-padding: 10;
+}

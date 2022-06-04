@@ -55,6 +55,14 @@ public class ServerThread extends Thread{
                     case "editSet":
                         databaseController.editSet(requestJson);
                         break;
+                    case "giveAllScores":
+                        sendToClient(bw,databaseController.getAllScores());
+                        break;
+                    case "resetFirstScore":
+                        databaseController.resetFirstScore(requestJson.get("setId").getAsInt());
+                        break;
+                    case "resetSecondScore":
+                        databaseController.resetSecondScore(requestJson.get("setId").getAsInt());
                 }
             }
 

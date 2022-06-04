@@ -116,4 +116,26 @@ public class ServerConnectionController {
         request.addProperty("set_id",Integer.valueOf(id));
         sendToServer(bw,request.toString());
     }
+
+    public String getAllScores() throws IOException {
+        JsonObject request = new JsonObject();
+        request.addProperty("action","giveAllScores");
+        sendToServer(bw,request.toString());
+        return br.readLine();
+
+    }
+
+    public void resetFirstScore(int setId) throws IOException {
+        JsonObject request = new JsonObject();
+        request.addProperty("action","resetFirstScore");
+        request.addProperty("setId",setId);
+        sendToServer(bw,request.toString());
+    }
+
+    public void resetSecondScore(int setId) throws IOException {
+        JsonObject request = new JsonObject();
+        request.addProperty("action","resetSecondScore");
+        request.addProperty("setId",setId);
+        sendToServer(bw,request.toString());
+    }
 }

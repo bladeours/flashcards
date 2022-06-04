@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<Pane fx:id="root" prefHeight="600" prefWidth="1000.0" stylesheets="@../css/scoresStyle.css" xmlns="http://javafx.com/javafx/16"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flashcard.controller.ScoresController">
+    <VBox fx:id="rootVBox" alignment="TOP_CENTER">
+        <HBox fx:id="backToMenuHBox" prefWidth="1000.0" alignment="TOP_LEFT">
+            <Button text="back to menu" onMouseClicked="#backToMenu"/>
+        </HBox>
+        <Label fx:id="scoresLabel" text="Scores"/>
+        <HBox alignment="TOP_CENTER" spacing="30" prefWidth="1000.0">
+            <Label text="set name" styleClass="setNameLabel" fx:id="setNameTitleLabel"/>
+            <Label text="first" styleClass="scoreLabel"/>
+            <Label text="second" styleClass="scoreLabel"/>
+        </HBox>
+        <ScrollPane fx:id="scoresScrollPane" prefHeight="600" prefWidth="1000.0">
+            <VBox fx:id="scoresVBox" alignment="TOP_CENTER" prefWidth="1000.0">
+<!--                <HBox alignment="TOP_CENTER">-->
+<!--                    <Label text="test set" styleClass="setNameLabel"/>-->
+<!--                    <Button text="x" styleClass="resetButton"/>-->
+<!--                    <Label text="21/37" styleClass="firstScoreLabel"/>-->
+<!--                    <Label text="21/15" styleClass="secondScoreLabel"/>-->
+<!--                    <Button text="x" styleClass="resetButton"/>-->
+<!--                </HBox>-->
+            </VBox>
+        </ScrollPane>
+    </VBox>
+</Pane>

@@ -2,6 +2,7 @@ package com.flashcard.controller;
 
 import com.flashcard.dto.ColorDTO;
 import com.flashcard.dto.FlashcardDTO;
+import com.flashcard.dto.ScoreDTO;
 import com.flashcard.dto.SetDTO;
 import com.flashcard.entity.*;
 import com.google.gson.Gson;
@@ -17,7 +18,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class DatabaseController {
 
@@ -93,7 +93,7 @@ public class DatabaseController {
     public void editSet(JsonObject setJson) {
         Session session = factory.getCurrentSession();
         try{
-//            get sentences
+            //get sentences
             JsonElement sentencesJson = setJson.get("sentences");
             Type type = new TypeToken<ArrayList<Map<String,String>>>(){}.getType();
             ArrayList<Map<String,String>> sentences = new Gson().fromJson(sentencesJson,type);
@@ -109,8 +109,6 @@ public class DatabaseController {
             setToEdt.setColor(color);
             setToEdt.setName(setJson.get("setName").getAsString());
 
-
-//            ArrayList<Flashcard> flashcards = new ArrayList<>();
             int flashcardId;
             for(Map<String, String> sentence : sentences) {
                 System.out.println(sentence.get("flashcardId"));
@@ -126,12 +124,7 @@ public class DatabaseController {
                     session.persist(flashcardNew);
                 }
 
-//                Flashcard flashcard = new Flashcard(set,sentence.get("firstSentence"),
-//                        sentence.get("secondSentence"));
-//                flashcards.add(flashcard);
             }
-//            set.setFlashcards(flashcards);
-//            session.persist(set);
             session.getTransaction(). commit();
         }
         finally {
@@ -224,4 +217,69 @@ public class DatabaseController {
     }
 
 
+    public String getAllScores() {
+        String scoresJson;
+        Session session = factory.getCurrentSession();
+        try{
+            session.beginTransaction();
+
+            List<Score> scores = session.createQuery("from Score",Score.class).getResultList();
+
+            ArrayList<ScoreDTO> scoresDTO = new ArrayList<>();
+
+            for(Score score: scores){
+                scoresDTO.add(new ScoreDTO(score.getId(),score.getSet().getId(),score.getSet().getName(),
+                        score.getScoreFirst(),score.getScoreSecond(), score.getSet().getFlashcards().size()));
+            }
+//            System.out.println(scoresDTO);
+            scoresJson = new Gson().toJson(scoresDTO);
+            System.out.println(scoresJson);
+            session.getTransaction().commit();
+
+
+        }finally {
+            session.close();
+        }
+        return scoresJson;
+    }
+
+    public void resetFirstScore(int setId) {
+        Session session = factory.getCurrentSession();
+        try{
+            session.beginTransaction();
+
+            List<Flashcard> flashcards = session.createQuery("from Flashcard where set.id=:setId",Flashcard.class)
+                    .setParameter("setId",setId)
+                    .getResultList();
+
+            for(Flashcard flashcard: flashcards){
+                flashcard.setFirstCorrect(0);
+            }
+            session.getTransaction().commit();
+
+
+        }finally {
+            session.close();
+        }
+    }
+
+    public void resetSecondScore(int setId) {
+        Session session = factory.getCurrentSession();
+        try{
+            session.beginTransaction();
+
+            List<Flashcard> flashcards = session.createQuery("from Flashcard where set.id=:setId",Flashcard.class)
+                    .setParameter("setId",setId)
+                    .getResultList();
+
+            for(Flashcard flashcard: flashcards){
+                flashcard.setSecondCorrect(0);
+            }
+            session.getTransaction().commit();
+
+
+        }finally {
+            session.close();
+        }
+    }
 }
