@@ -2,26 +2,23 @@ package com.flashcard.controller;
 
 import com.flashcard.event.ShowViewEvent;
 import com.flashcard.listener.ShowViewListener;
+import com.flashcard.service.EditService;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.css.StyleClass;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.springframework.format.Parser;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -50,11 +47,16 @@ public class CreateSetController implements Initializable {
 
     private final ShowViewListener showViewListener;
     private final ServerConnectionController serverConnectionController;
+    private final EditService editService;
+    private boolean edit = false;
+    private int setToEditId;
 
 
-    public CreateSetController(ShowViewListener showViewListener, ServerConnectionController serverConnectionController) {
+    public CreateSetController(ShowViewListener showViewListener, ServerConnectionController serverConnectionController,
+                               EditService editService) {
         this.showViewListener = showViewListener;
         this.serverConnectionController = serverConnectionController;
+        this.editService = editService;
         System.out.println("CreateSetController constructor");
     }
 
@@ -69,6 +71,7 @@ public class CreateSetController implements Initializable {
         }
 
         colorComboBox.setItems(colors);
+        colorComboBox.setValue(colors.get(0));
     }
 
     @FXML
@@ -109,6 +112,7 @@ public class CreateSetController implements Initializable {
 
     @FXML
     public void backToMenu(){
+        edit = false;
         showViewListener.getApplicationContext().publishEvent(new ShowViewEvent((Stage) root.getScene().getWindow(),
                 "/com/flashcard/view/menuView.fxml"));
     }
@@ -122,7 +126,12 @@ public class CreateSetController implements Initializable {
         JsonObject setJson = new JsonObject();
         setJson.addProperty("setName",setName);
         setJson.addProperty("color",color);
-        setJson.addProperty("action","createSet");
+        if(edit){
+            setJson.addProperty("action","editSet");
+            setJson.addProperty("setToEditId",setToEditId);
+        }else{
+            setJson.addProperty("action","createSet");
+        }
         Map<String,String> OneSentences = new HashMap<>();
         ArrayList<Map<String,String>> AllSentences = new ArrayList<>();
 
@@ -138,6 +147,9 @@ public class CreateSetController implements Initializable {
                     }
                 }
             }
+            if(edit){
+                OneSentences.put("flashcardId",String.valueOf(hBox.getProperties().get("flashcardId")));
+            }
             AllSentences.add(new HashMap<>(OneSentences));
             OneSentences.clear();
         }
@@ -146,9 +158,26 @@ public class CreateSetController implements Initializable {
         JsonElement jsonElement = JsonParser.parseString(allSentencesJson).getAsJsonArray();
 
         setJson.add("sentences",jsonElement);
+        System.out.println(setJson);
+
         serverConnectionController.sendNewSet(setJson.toString());
+
         //TODO add user
+
+        backToMenu();
     }
 
+    public void setEdit(boolean edit) {
+        this.edit = edit;
+    }
 
+    public void setSetToEditId(int setToEditId) {
+        this.setToEditId = setToEditId;
+    }
+
+    public void createEditLayout(int setId, String name, String color) throws IOException {
+        setNameTextField.setText(name);
+        colorComboBox.setValue(color);
+        editService.addSentencesToLayout(addSentencesVBox, setId);
+    }
 }

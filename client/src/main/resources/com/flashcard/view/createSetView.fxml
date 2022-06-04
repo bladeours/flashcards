@@ -16,12 +16,13 @@
            <ComboBox fx:id="colorComboBox"/>
        </HBox>
        <ScrollPane fx:id="addSentencesScrollPane">
-           <VBox fx:id="addSentencesVBox">
+           <VBox fx:id="addSentencesVBox" alignment="TOP_CENTER">
                <HBox styleClass="sentencesHBox" prefWidth="1000.0" alignment="TOP_CENTER">
                    <Label text="First sentence" styleClass="firstSentenceLabel"/>
                    <TextField styleClass="firstSentenceTextField"/>
                    <Label styleClass="secondSentenceLabel" text="Second sentence"/>
                    <TextField styleClass="secondSentenceTextField"/>
+                   <Button text="X" visible="false"/>
                </HBox>
            </VBox>
        </ScrollPane>

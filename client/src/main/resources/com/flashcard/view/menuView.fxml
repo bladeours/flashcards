@@ -17,18 +17,7 @@
    </VBox>
     <ScrollPane fx:id="rootRightScrollPane" layoutX="300.0" prefHeight="600.0" prefWidth="700.0">
         <VBox fx:id="rootRightVBox">
-<!--            <HBox styleClass="rowSentenceHBox">-->
-<!--                <VBox styleClass="rootSetsVBox" alignment="TOP_CENTER">-->
-<!--                    <Label text="Set name" styleClass="setNameLabel"/>-->
-<!--                    <HBox styleClass="setButtonsHBox">-->
-<!--                        <Button text="Edit" styleClass="setButtons"/>-->
-<!--                        <Button text="Add" styleClass="setButtons"/>-->
-<!--                        <Button text="Remove" styleClass="setButtons"/>-->
-<!--                    </HBox>-->
-<!--                </VBox>-->
 
-
-<!--            </HBox>-->
         </VBox>
 
 

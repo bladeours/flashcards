@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<Pane fx:id="root" prefHeight="600" prefWidth="1000.0" stylesheets="@../css/createSetStyle.css" xmlns="http://javafx.com/javafx/16"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flashcard.controller.EditSetController">
+    <VBox fx:id="rootVBox" alignment="TOP_CENTER">
+        <!--       <Label fx:id="setNameLabel" alignment="CENTER" text="Set name"/>-->
+        <TextField fx:id="setNameTextField" alignment="CENTER" text="Set name"/>
+        <HBox alignment="TOP_CENTER">
+            <Label text="Color" fx:id="colorLabel"/>
+            <ComboBox fx:id="colorComboBox"/>
+        </HBox>
+        <ScrollPane fx:id="addSentencesScrollPane">
+            <VBox fx:id="addSentencesVBox">
+                <HBox styleClass="sentencesHBox" prefWidth="1000.0" alignment="TOP_CENTER">
+                    <Label text="First sentence" styleClass="firstSentenceLabel"/>
+                    <TextField styleClass="firstSentenceTextField"/>
+                    <Label styleClass="secondSentenceLabel" text="Second sentence"/>
+                    <TextField styleClass="secondSentenceTextField"/>
+                    <Button text="X" visible="false"/>
+                </HBox>
+            </VBox>
+        </ScrollPane>
+        <HBox fx:id="buttonsHBox" alignment="TOP_CENTER">
+            <Button text="Back to menu" onAction="#backToMenu"/>
+            <Button text="Save" onAction="#saveSet"/>
+            <Button fx:id="addSentenceButton" text="Add Sentence" onAction="#addSentence"/>
+        </HBox>
+
+    </VBox>
+</Pane>

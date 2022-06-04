@@ -16,7 +16,7 @@ public class Set {
     @Column(name="name")
     private String name;
     @OneToMany(mappedBy = "set",
-            cascade = {CascadeType.PERSIST,CascadeType.PERSIST,CascadeType.DETACH,CascadeType.REFRESH})
+            cascade = {CascadeType.ALL})
     private List<Flashcard> flashcards;
     @OneToMany(mappedBy = "set",
             cascade = {CascadeType.PERSIST,CascadeType.PERSIST,CascadeType.DETACH,CascadeType.REFRESH})

@@ -24,8 +24,6 @@
 .rowSentenceHBox {
     -fx-background-color: transparent;
     -fx-padding: 20;
-    -fx-border-color: green;
-    -fx-border-width: 2;
     -fx-spacing: 55;
 }
 

@@ -3,13 +3,12 @@ package com.flashcard.controller;
 import com.flashcard.event.ShowViewEvent;
 //import com.flashcard.listener.ShowCreateSetListener;
 import com.flashcard.listener.ShowViewListener;
+import com.flashcard.dto.SetDTO;
 import com.flashcard.service.MenuService;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -19,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 @Component
@@ -56,7 +56,9 @@ public class MenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        menuService.setPane(root);
+        menuService.setRootRightVBox(rootRightVBox);
+        menuService.refreshSetTiles();
     }
 
     @FXML
@@ -71,13 +73,9 @@ public class MenuController implements Initializable {
     }
 
     @FXML
-    private void test(){
+    private void test() throws IOException {
 
-        HBox rowSentenceHBox = menuService.chooseHBoxToSetTiles(rootRightVBox);
 
-        rowSentenceHBox.getChildren().add(menuService.createSetTile("nazwa "," #696969"));
-
-        //        rootRightVBox.getChildren().add()
     }
 
 }

@@ -1,7 +1,6 @@
 package com.flashcard;
 
 import com.flashcard.controller.DatabaseController;
-import com.flashcard.entity.Score;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -40,8 +39,22 @@ public class ServerThread extends Thread{
                     case "createSet":
                         databaseController.createSet(requestJson);
                         break;
-//                    case "lol" -> System.out.println("Tescior udany!");
-//                    default -> System.out.println("default");
+                    case "giveSets":
+                        sendToClient(bw,databaseController.getSets());
+                        break;
+                    case "giveFlashcardsForSet":
+                        sendToClient(bw,databaseController.getFlashcardsForSet(requestJson.get("set_id").getAsInt()));
+                        break;
+                    case "updateCorrectSentence":
+                        databaseController.updateCorrectSentence(requestJson.get("flashcard_id").getAsInt(),
+                                requestJson.get("whichSentence").getAsString());
+                        break;
+                    case "removeSet":
+                        databaseController.removeSet(requestJson.get("set_id").getAsInt());
+                        break;
+                    case "editSet":
+                        databaseController.editSet(requestJson);
+                        break;
                 }
             }
 

@@ -1,0 +1,42 @@
+.backToMenuButton{
+
+}
+
+.flashcardVBox{
+    -fx-background-color: green;
+    -fx-pref-height: 200;
+    -fx-max-height: 200;
+    -fx-pref-width: 350;
+    -fx-max-width: 350;
+
+}
+
+.navigateButtons{
+    -fx-pref-width: 100;
+}
+
+#setNameLabel{
+    -fx-font-size: 35;
+}
+
+#sentenceLabel{
+    -fx-font-size: 20;
+}
+
+#backToMenuVBox{
+    -fx-pref-height: 100;
+    -fx-padding: 30;
+}
+
+#nextPreviousHBox{
+    -fx-padding: 30 0 0 0;
+}
+
+#correctWrongHBox{
+
+}
+
+#sentenceVBox{
+    -fx-pref-height: 130;
+    -fx-max-height: 130;
+}

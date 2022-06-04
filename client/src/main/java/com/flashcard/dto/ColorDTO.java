@@ -1,10 +1,10 @@
-package com.flashcard.repository;
+package com.flashcard.dto;
 
-public class Color {
+public class ColorDTO {
     private int id;
     private String code;
 
-    public Color(int id, String code) {
+    public ColorDTO(int id, String code) {
         this.id = id;
         this.code = code;
     }
