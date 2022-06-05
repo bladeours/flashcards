@@ -17,7 +17,7 @@ public class Score {
     private int scoreFirst;
     @Column(name="score_second")
     private int scoreSecond;
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.PERSIST,CascadeType.DETACH,CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name="set_id")
     private Set set;
 

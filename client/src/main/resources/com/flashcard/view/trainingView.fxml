@@ -13,9 +13,10 @@
             <Button text="Back to menu" styleClass="backToMenuButton" onMouseClicked="#backToMenu"/>
         </VBox>
         <Label fx:id="setNameLabel" text="set name"/>
-        <VBox styleClass="flashcardVBox" alignment="TOP_CENTER">
+        <VBox fx:id="flashcardVBox" styleClass="flashcardVBox" alignment="TOP_CENTER">
+            <Label fx:id="counterLabel"/>
             <VBox fx:id="sentenceVBox" alignment="CENTER">
-                <Label fx:id="sentenceLabel" text="first sentence"/>
+                <Label fx:id="sentenceLabel" text="first sentence" wrapText="true"/>
             </VBox>
             <HBox fx:id="correctWrongHBox" visible="false" managed="false" prefWidth="400" alignment="CENTER" spacing="60">
                 <Button text="correct" onMouseClicked="#correct"/>

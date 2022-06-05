@@ -11,9 +11,8 @@
    <VBox fx:id="rootVBox" alignment="TOP_CENTER">
 <!--       <Label fx:id="setNameLabel" alignment="CENTER" text="Set name"/>-->
        <TextField fx:id="setNameTextField" alignment="CENTER" text="Set name"/>
-       <HBox alignment="TOP_CENTER">
+       <HBox fx:id="colorHBox" alignment="CENTER">
            <Label text="Color" fx:id="colorLabel"/>
-           <ComboBox fx:id="colorComboBox"/>
        </HBox>
        <ScrollPane fx:id="addSentencesScrollPane">
            <VBox fx:id="addSentencesVBox" alignment="TOP_CENTER">
@@ -22,7 +21,7 @@
                    <TextField styleClass="firstSentenceTextField"/>
                    <Label styleClass="secondSentenceLabel" text="Second sentence"/>
                    <TextField styleClass="secondSentenceTextField"/>
-                   <Button text="X" visible="false"/>
+                   <Button text="X" onAction="#removeRow"/>
                </HBox>
            </VBox>
        </ScrollPane>

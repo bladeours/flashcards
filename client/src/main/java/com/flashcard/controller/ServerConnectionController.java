@@ -38,22 +38,8 @@ public class ServerConnectionController {
 
     }
 
-    public  void test() {
-        JsonObject request = new JsonObject();
-        request.addProperty("action","test");
-        try {
-            bw.write(request.toString());
-            bw.newLine();
-            bw.flush();
-            System.out.println(br.readLine());
-        }catch (IOException e){
-            e.printStackTrace();
-        }
 
-    }
-
-    public ObservableList<String> getColors() throws IOException {
-        System.out.println("getColors()");
+    public ArrayList<ColorDTO> getColors() throws IOException {
         JsonObject request = new JsonObject();
         request.addProperty("action","giveColors");
         sendToServer(bw,request.toString());
@@ -61,11 +47,7 @@ public class ServerConnectionController {
         Gson gson = new Gson();
         Type colorsListType = new TypeToken<ArrayList<ColorDTO>>(){}.getType();
         ArrayList<ColorDTO> colorsArrayList = gson.fromJson(respond,colorsListType);
-        ObservableList<String> colors =  FXCollections.observableArrayList();
-        for(ColorDTO colorDTO : colorsArrayList) {
-            colors.add(colorDTO.getCode());
-        }
-        return colors;
+        return colorsArrayList;
     }
 
     public String getSets() throws IOException {

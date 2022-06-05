@@ -146,7 +146,7 @@ public class MenuService {
                     stageListener.getApplicationContext().publishEvent(new ShowViewEvent((Stage) root.getScene().getWindow()
                             ,"/com/flashcard/view/trainingView.fxml"));
                     try {
-                        trainingController.createFlashcardView(Integer.parseInt(id),name);
+                        trainingController.createFlashcardView(Integer.parseInt(id),name,color);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

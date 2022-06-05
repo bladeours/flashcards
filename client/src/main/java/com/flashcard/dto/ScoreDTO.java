@@ -1,6 +1,6 @@
 package com.flashcard.dto;
 
-public class ScoreDTO {
+public class ScoreDTO implements Comparable<ScoreDTO> {
     private int id;
     private int setId;
     private String setName;
@@ -30,5 +30,10 @@ public class ScoreDTO {
 
     public int getMaxScore() {
         return maxScore;
+    }
+
+    @Override
+    public int compareTo(ScoreDTO newScore) {
+        return setName.compareToIgnoreCase(newScore.setName);
     }
 }

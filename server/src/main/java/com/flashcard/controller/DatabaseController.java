@@ -69,9 +69,10 @@ public class DatabaseController {
 
             session.beginTransaction();
             //get color id
-            Query query = session.createQuery("from Color where code =:code ",Color.class)
-                    .setParameter("code", setJson.get("color").getAsString());
-            Color color = (Color) query.uniqueResult();
+//            Query query = session.createQuery("from Color where code =:code ",Color.class)
+//                    .setParameter("code", setJson.get("color").getAsString());
+//            Color color = (Color) query.uniqueResult();
+            Color color = session.get(Color.class,setJson.get("color").getAsInt());
 
             Set set = new Set(setJson.get("setName").getAsString(),color);
 

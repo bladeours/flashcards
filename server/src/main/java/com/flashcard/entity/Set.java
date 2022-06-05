@@ -19,7 +19,7 @@ public class Set {
             cascade = {CascadeType.ALL})
     private List<Flashcard> flashcards;
     @OneToMany(mappedBy = "set",
-            cascade = {CascadeType.PERSIST,CascadeType.PERSIST,CascadeType.DETACH,CascadeType.REFRESH})
+            cascade = {CascadeType.ALL})
     private List<Score> scores;
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.PERSIST,CascadeType.DETACH,CascadeType.REFRESH})
     @JoinColumn(name="user_id")

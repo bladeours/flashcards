@@ -66,9 +66,6 @@ public class EditService {
             hbox.getChildren().add(secondSentenceLabel);
             hbox.getChildren().add(secondSentenceTextField);
             hbox.getChildren().add(removeButton);
-            if(i==0){
-                removeButton.setVisible(false);
-            }
             addSentencesVBox.getChildren().add(hbox);
         }
 

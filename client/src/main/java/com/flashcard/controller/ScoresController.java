@@ -5,13 +5,11 @@ import com.flashcard.event.ShowViewEvent;
 import com.flashcard.listener.ShowViewListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -21,6 +19,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 
 @Component
 public class ScoresController {
@@ -43,6 +42,7 @@ public class ScoresController {
     public void createScoreView() throws IOException {
         System.out.println();
         ArrayList<ScoreDTO> scores = createScoreArrayFromJson(serverConnectionController.getAllScores());
+        Collections.sort(scores);
         for(ScoreDTO score: scores){
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.TOP_CENTER);
@@ -51,14 +51,14 @@ public class ScoresController {
 
             Button resetFirstButton = new Button("x");
             resetFirstButton.getStyleClass().add("resetButton");
-            resetFirstButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    try {
-                        serverConnectionController.resetFirstScore(score.getSetId());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            resetFirstButton.setOnMouseClicked(mouseEvent -> {
+                try {
+                    serverConnectionController.resetFirstScore(score.getSetId());
+                    showViewListener.getApplicationContext().publishEvent(new ShowViewEvent((Stage) root.getScene().getWindow()
+                            , "/com/flashcard/view/scoresView.fxml"));
+                    createScoreView();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             });
 
@@ -70,14 +70,14 @@ public class ScoresController {
 
             Button resetSecondButton = new Button("x");
             resetSecondButton.getStyleClass().add("resetButton");
-            resetSecondButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    try {
-                        serverConnectionController.resetSecondScore(score.getSetId());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            resetSecondButton.setOnMouseClicked(mouseEvent -> {
+                try {
+                    serverConnectionController.resetSecondScore(score.getSetId());
+                    showViewListener.getApplicationContext().publishEvent(new ShowViewEvent((Stage) root.getScene().getWindow()
+                            ,"/com/flashcard/view/scoresView.fxml"));
+                    createScoreView();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             });
 
@@ -85,16 +85,11 @@ public class ScoresController {
             scoresVBox.getChildren().add(hBox);
         }
 
-
-
-
-//        scoresVBox.getChildren().add();
     }
 
     public ArrayList<ScoreDTO> createScoreArrayFromJson(String json){
         Type scoreListType = new TypeToken<ArrayList<ScoreDTO>>(){}.getType();
-        ArrayList<ScoreDTO> scoreDTOArrayList = new Gson().fromJson(json,scoreListType);
-        return scoreDTOArrayList;
+        return new Gson().fromJson(json,scoreListType);
     }
 
     @FXML

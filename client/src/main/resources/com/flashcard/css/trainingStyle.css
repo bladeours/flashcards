@@ -21,6 +21,8 @@
 
 #sentenceLabel{
     -fx-font-size: 20;
+    -fx-padding: 7;
+    -fx-text-alignment: center;
 }
 
 #backToMenuVBox{

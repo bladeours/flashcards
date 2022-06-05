@@ -5,10 +5,12 @@ import com.flashcard.event.ShowViewEvent;
 import com.flashcard.listener.ShowViewListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +30,11 @@ public class TrainingController implements Initializable {
     private HBox correctWrongHBox;
     @FXML
     private Pane root;
+    @FXML
+    private Label counterLabel;
+    @FXML
+    private VBox flashcardVBox;
+
     private int sentenceNumber;
     private boolean fromFirst = false;
 
@@ -47,59 +54,49 @@ public class TrainingController implements Initializable {
 
     }
 
-    public void createFlashcardView(int setId, String setName) throws IOException {
+    public void createFlashcardView(int setId, String setName, String color) throws IOException {
+        flashcardVBox.setStyle("-fx-background-color: " + color);
         sentenceNumber = 0;
         flashcards = serverConnectionController.getFlashcardsForSet(String.valueOf(setId));
-        System.out.println("flashcard przed modyfikacja: "+flashcards);
-
         if(fromFirst){
             flashcards.removeIf(flashcard -> flashcard.getFirstCorrect() > 0);
         }else{
             flashcards.removeIf(flashcard -> flashcard.getSecondCorrect() > 0);
 
         }
-
-//        for(FlashcardDTO flashcard: flashcards){
-//         if(fromFirst){
-//             if(flashcard.getFirstCorrect() == 1){
-//                 flashcards.remove(flashcard);
-//             }
-//         }else{
-//             if(flashcard.getSecondCorrect() == 1){
-//                 flashcards.remove(flashcard);
-//             }
-//         }
-//        }
         Collections.shuffle(flashcards);
-
-        System.out.println("flashcard po modyfikacja: "+flashcards);
         setNameLabel.setText(setName);
         sentenceLabel.setText(choseFirstSentence());
+        counterLabel.setText("1/" + flashcards.size());
 
     }
 
     @FXML
     public void nextSentence(){
         if(sentenceNumber >= 0 && sentenceNumber < flashcards.size()-1) {
+            counterLabel.setText((sentenceNumber+2)+ "/" + flashcards.size());
             sentenceNumber++;
             sentenceLabel.setText(choseFirstSentence());
             correctWrongHBox.setVisible(false);
             correctWrongHBox.setManaged(false);
+
+        }else{
+            showTheEndAlert();
         }
-        System.out.println("sentenceNumber="+sentenceNumber + " flashcards.size()-1=" + (flashcards.size()-1));
 
     }
 
     @FXML
     public void previousSentence(){
-        System.out.println("sentenceNumber="+sentenceNumber + " flashcards.size()-1=" + (flashcards.size()-1));
         if(sentenceNumber > 0 && sentenceNumber < flashcards.size()) {
+            counterLabel.setText(sentenceNumber + "/" + flashcards.size());
             sentenceNumber--;
             sentenceLabel.setText(choseFirstSentence());
             correctWrongHBox.setVisible(false);
             correctWrongHBox.setManaged(false);
+        }else{
+            showTheEndAlert();
         }
-        System.out.println("sentenceNumber="+sentenceNumber + " flashcards.size()-1=" + (flashcards.size()-1));
 
     }
 
@@ -132,6 +129,8 @@ public class TrainingController implements Initializable {
             if (sentenceNumber < flashcards.size()-1){
                 nextSentence();
             }
+        }else{
+            showTheEndAlert();
         }
     }
 
@@ -158,5 +157,13 @@ public class TrainingController implements Initializable {
         this.fromFirst = fromFirst;
     }
 
+    private void showTheEndAlert(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText(null);
+        alert.setContentText("There is no more sentences.");
+
+        alert.showAndWait();
+    }
 
 }

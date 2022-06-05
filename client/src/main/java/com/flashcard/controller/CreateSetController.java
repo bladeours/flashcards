@@ -1,5 +1,6 @@
 package com.flashcard.controller;
 
+import com.flashcard.dto.ColorDTO;
 import com.flashcard.event.ShowViewEvent;
 import com.flashcard.listener.ShowViewListener;
 import com.flashcard.service.EditService;
@@ -15,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -33,23 +35,24 @@ import java.util.ResourceBundle;
 public class CreateSetController implements Initializable {
 
     @FXML
-    Pane root;
+    private Pane root;
     @FXML
-    ScrollPane addSentencesScrollPane;
+    private ScrollPane addSentencesScrollPane;
     @FXML
-    Button addSentenceButton;
+    private Button addSentenceButton;
     @FXML
-    VBox addSentencesVBox;
+    private VBox addSentencesVBox;
     @FXML
-    ComboBox<String> colorComboBox;
+    private HBox colorHBox;
     @FXML
-    TextField setNameTextField;
+    private TextField setNameTextField;
 
     private final ShowViewListener showViewListener;
     private final ServerConnectionController serverConnectionController;
     private final EditService editService;
     private boolean edit = false;
     private int setToEditId;
+    private int colorId = 1;
 
 
     public CreateSetController(ShowViewListener showViewListener, ServerConnectionController serverConnectionController,
@@ -63,15 +66,26 @@ public class CreateSetController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<String> colors = null;
+        ArrayList<ColorDTO> colors = null;
         try {
             colors = serverConnectionController.getColors();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        for(ColorDTO color: colors){
+            Button colorButton = new Button();
+            colorButton.getStyleClass().add("colorButtons");
+            colorButton.setStyle("-fx-background-color: " + color.getCode());
+            colorButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    colorId = color.getId();
+                }
+            });
+            colorHBox.getChildren().add(colorButton);
 
-        colorComboBox.setItems(colors);
-        colorComboBox.setValue(colors.get(0));
+        }
+
     }
 
     @FXML
@@ -92,20 +106,14 @@ public class CreateSetController implements Initializable {
         removeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                Button button = (Button) actionEvent.getSource();
-                HBox hBox = (HBox) button.getParent();
-                VBox vBox = (VBox) hBox.getParent();
-                vBox.getChildren().remove(hBox);
+                removeRow(actionEvent);
             }
         });
 
         HBox hbox = new HBox();
         hbox.setAlignment(Pos.TOP_CENTER);
-        hbox.getChildren().add(firstSentenceLabel);
-        hbox.getChildren().add(firstSentenceTextField);
-        hbox.getChildren().add(secondSentenceLabel);
-        hbox.getChildren().add(secondSentenceTextField);
-        hbox.getChildren().add(removeButton);
+        hbox.getChildren().addAll(firstSentenceLabel,firstSentenceTextField,secondSentenceLabel,secondSentenceTextField,
+                removeButton);
 
         addSentencesVBox.getChildren().add(hbox);
     }
@@ -121,7 +129,8 @@ public class CreateSetController implements Initializable {
     public void saveSet() throws IOException {
 
         String setName = setNameTextField.getText();
-        String color = colorComboBox.getValue();
+//        String color = colorComboBox.getValue();
+        int color = colorId;
         Gson gson = new Gson();
         JsonObject setJson = new JsonObject();
         setJson.addProperty("setName",setName);
@@ -135,16 +144,25 @@ public class CreateSetController implements Initializable {
         Map<String,String> OneSentences = new HashMap<>();
         ArrayList<Map<String,String>> AllSentences = new ArrayList<>();
 
+        boolean dontSend = addSentencesVBox.getChildren().size() == 0;
+
         for(Node node: addSentencesVBox.getChildren()){
             HBox hBox = (HBox) node;
+
             for(Node hboxChildren: hBox.getChildren()){
                 if(hboxChildren.getClass().equals(TextField.class)){
+                    if(((TextField) hboxChildren).getText().equals("")){
+                        dontSend = true;
+                        break;
+                    }
                     if(hboxChildren.getStyleClass().contains("firstSentenceTextField")){
+
                         OneSentences.put("firstSentence",((TextField) hboxChildren).getText());
                     }
                     if(hboxChildren.getStyleClass().contains("secondSentenceTextField")){
                         OneSentences.put("secondSentence",((TextField) hboxChildren).getText());
                     }
+
                 }
             }
             if(edit){
@@ -160,11 +178,19 @@ public class CreateSetController implements Initializable {
         setJson.add("sentences",jsonElement);
         System.out.println(setJson);
 
-        serverConnectionController.sendNewSet(setJson.toString());
+        if(dontSend || setNameTextField.getText().equals("") ){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning!");
+            alert.setHeaderText("Illegal argument");
+            alert.setContentText("No field can be empty!");
+            alert.showAndWait();
+        }else{
+            serverConnectionController.sendNewSet(setJson.toString());
+            backToMenu();
 
+        }
         //TODO add user
 
-        backToMenu();
     }
 
     public void setEdit(boolean edit) {
@@ -177,7 +203,14 @@ public class CreateSetController implements Initializable {
 
     public void createEditLayout(int setId, String name, String color) throws IOException {
         setNameTextField.setText(name);
-        colorComboBox.setValue(color);
+//        colorComboBox.setValue(color);
         editService.addSentencesToLayout(addSentencesVBox, setId);
+    }
+
+    public void removeRow(ActionEvent actionEvent) {
+        Button button = (Button) actionEvent.getSource();
+        HBox hBox = (HBox) button.getParent();
+        VBox vBox = (VBox) hBox.getParent();
+        vBox.getChildren().remove(hBox);
     }
 }
