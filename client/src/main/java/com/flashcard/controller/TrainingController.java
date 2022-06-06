@@ -56,6 +56,7 @@ public class TrainingController implements Initializable {
 
     public void createFlashcardView(int setId, String setName, String color) throws IOException {
         flashcardVBox.setStyle("-fx-background-color: " + color);
+        root.setStyle("-fx-new-color:" + color +";");
         sentenceNumber = 0;
         flashcards = serverConnectionController.getFlashcardsForSet(String.valueOf(setId));
         if(fromFirst){

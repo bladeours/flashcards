@@ -6,14 +6,18 @@
 
 <Pane fx:id="root" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../css/menuStyle.css" xmlns="http://javafx.com/javafx/11.0.14-internal"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flashcard.controller.MenuController">
-   <VBox fx:id="LeftVBox" prefHeight="600.0" prefWidth="300.0" spacing="30.0">
-         <Button fx:id="createNewButton" mnemonicParsing="false" onAction="#createNewSet" text="Create new" />
-         <Button fx:id="scoresButton" mnemonicParsing="false" text="Scores" onAction="#scores"/>
-         <Button fx:id="changeUserButton" mnemonicParsing="false" text="Change user" />
-         <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exit" text="Exit" />
-      <padding>
-         <Insets left="60.0" top="60.0" />
-      </padding>
+   <VBox fx:id="leftVBox" minHeight="600.0" prefWidth="300.0" spacing="30.0">
+       <VBox minHeight="500.0">
+           <Button fx:id="createNewButton" mnemonicParsing="false" onAction="#createNewSet" text="Create new" />
+           <Button fx:id="scoresButton" mnemonicParsing="false" text="Scores" onAction="#scores"/>
+           <Button fx:id="changeUserButton" mnemonicParsing="false" text="Change user" />
+           <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exit" text="Exit" />
+           <padding>
+               <Insets left="30.0" top="60.0" />
+           </padding>
+       </VBox>
+       <Label fx:id="versionLabel" text="Version 0.1" alignment="BOTTOM_CENTER" prefWidth="300"/>
+
    </VBox>
     <ScrollPane fx:id="rootRightScrollPane" layoutX="300.0" prefHeight="600.0" prefWidth="700.0">
         <VBox fx:id="rootRightVBox">

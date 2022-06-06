@@ -16,12 +16,17 @@
        </HBox>
        <ScrollPane fx:id="addSentencesScrollPane">
            <VBox fx:id="addSentencesVBox" alignment="TOP_CENTER">
-               <HBox styleClass="sentencesHBox" prefWidth="1000.0" alignment="TOP_CENTER">
+               <HBox prefWidth="1000.0" alignment="TOP_CENTER" spacing="20">
                    <Label text="First sentence" styleClass="firstSentenceLabel"/>
+                   <Label text="Second sentence" styleClass="secondSentenceLabel" />
+               </HBox>
+               <HBox styleClass="sentencesHBox" prefWidth="1000.0" alignment="TOP_CENTER">
+
                    <TextField styleClass="firstSentenceTextField"/>
-                   <Label styleClass="secondSentenceLabel" text="Second sentence"/>
-                   <TextField styleClass="secondSentenceTextField"/>
-                   <Button text="X" onAction="#removeRow"/>
+                    <HBox styleClass="removeButtonHBox">
+                        <TextField styleClass="secondSentenceTextField"/>
+                        <Button text="X" onAction="#removeRow" styleClass="removeButton"/>
+                    </HBox>
                </HBox>
            </VBox>
        </ScrollPane>

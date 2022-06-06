@@ -1,12 +1,21 @@
+.root{
+    -fx-new-color:pink;
+}
+
 #setNameTextField{
     -fx-font-size: 40;
     -fx-pref-height: 100;
     -fx-pref-width: 300;
     -fx-max-width: 300;
+    /*-fx-accent: white;*/
+    -fx-background-color: -fx-new-color, #efefef;
+    -fx-background-insets: 0, 0 0 2 0;
+    -fx-background-radius: 0;
 }
 #rootVBox{
     -fx-pref-width: 1000;
     -fx-pref-height: 600;
+    -fx-background-color: #efefef;
 }
 
 .label{
@@ -15,6 +24,10 @@
 }
 .secondSentenceLabel{
     -fx-padding: 2 10 2 70;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
 }
 
 #addSentencesScrollPane {
@@ -27,10 +40,12 @@
 
 .sentencesHBox {
     -fx-alignment: center;
+    -fx-spacing: 35;
 }
 
 #addSentencesVBox{
     -fx-spacing: 30;
+    -fx-background-color: transparent;
 }
 #buttonsHBox{
     -fx-pref-width: 1000;
@@ -41,6 +56,15 @@
 #buttonsHBox .button{
     -fx-pref-width: 100;
     -fx-spacing: 150;
+    -fx-pref-height: 50;
+    -fx-background-radius: 0;
+    -fx-background-color: white;
+    -fx-border-radius: 0;
+    -fx-border-color: -fx-new-color;
+}
+
+#buttonsHBox .button:hover{
+    -fx-border-width: 3;
 }
 
 .colorButtons {
@@ -52,4 +76,22 @@
 
 #colorHBox{
     -fx-spacing: 20;
+    -fx-padding: 7;
+}
+
+.firstSentenceTextField, .secondSentenceTextField{
+    -fx-background-color: -fx-new-color, #efefef;
+    -fx-background-insets: 0, 0 0 2 0;
+    -fx-background-radius: 0;
+}
+
+.removeButton {
+    -fx-background-color: transparent;
+    -fx-border-color: -fx-new-color;
+    -fx-text-fill: -fx-new-color;
+    -fx-border-radius: 0;
+}
+
+.removeButtonHBox{
+    -fx-spacing: 5;
 }

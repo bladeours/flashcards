@@ -80,6 +80,7 @@ public class CreateSetController implements Initializable {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     colorId = color.getId();
+                    root.setStyle("-fx-new-color:"+ color.getCode() +";");
                 }
             });
             colorHBox.getChildren().add(colorButton);
@@ -90,19 +91,15 @@ public class CreateSetController implements Initializable {
 
     @FXML
     public void addSentence() {
-        Label firstSentenceLabel = new Label("FirstSentence");
-        firstSentenceLabel.getStyleClass().add("firstSentenceLabel");
 
         TextField firstSentenceTextField = new TextField();
         firstSentenceTextField.getStyleClass().add("firstSentenceTextField");
-
-        Label secondSentenceLabel = new Label("SecondSentence");
-        secondSentenceLabel.getStyleClass().add("secondSentenceLabel");
 
         TextField secondSentenceTextField = new TextField();
         secondSentenceTextField.getStyleClass().add("secondSentenceTextField");
 
         Button removeButton = new Button("X");
+        removeButton.getStyleClass().add("removeButton");
         removeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -110,10 +107,14 @@ public class CreateSetController implements Initializable {
             }
         });
 
+        HBox smallerHBox =  new HBox();
+        smallerHBox.getStyleClass().add("removeButtonHBox");
         HBox hbox = new HBox();
         hbox.setAlignment(Pos.TOP_CENTER);
-        hbox.getChildren().addAll(firstSentenceLabel,firstSentenceTextField,secondSentenceLabel,secondSentenceTextField,
-                removeButton);
+        hbox.getStyleClass().add("sentencesHBox");
+
+        smallerHBox.getChildren().addAll(secondSentenceTextField,removeButton);
+        hbox.getChildren().addAll(firstSentenceTextField,smallerHBox);
 
         addSentencesVBox.getChildren().add(hbox);
     }
@@ -210,7 +211,8 @@ public class CreateSetController implements Initializable {
     public void removeRow(ActionEvent actionEvent) {
         Button button = (Button) actionEvent.getSource();
         HBox hBox = (HBox) button.getParent();
-        VBox vBox = (VBox) hBox.getParent();
-        vBox.getChildren().remove(hBox);
+        HBox hBoxParent = (HBox) hBox.getParent();
+        VBox vBox = (VBox) hBoxParent.getParent();
+        vBox.getChildren().remove(hBoxParent);
     }
 }

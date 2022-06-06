@@ -8,19 +8,19 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <Pane fx:id="root" prefHeight="600" prefWidth="1000.0" stylesheets="@../css/trainingStyle.css" xmlns="http://javafx.com/javafx/16"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flashcard.controller.TrainingController">
-    <VBox fx:id="rootVBox" alignment="TOP_CENTER" prefHeight="600" prefWidth="1000.0" onMouseClicked="#showSecondSentence">
+    <VBox fx:id="rootVBox" alignment="TOP_CENTER" prefHeight="600" prefWidth="1000.0" >
         <VBox fx:id="backToMenuVBox" alignment="TOP_LEFT" >
             <Button text="Back to menu" styleClass="backToMenuButton" onMouseClicked="#backToMenu"/>
         </VBox>
         <Label fx:id="setNameLabel" text="set name"/>
-        <VBox fx:id="flashcardVBox" styleClass="flashcardVBox" alignment="TOP_CENTER">
+        <VBox fx:id="flashcardVBox" styleClass="flashcardVBox" alignment="TOP_CENTER" onMouseClicked="#showSecondSentence">
             <Label fx:id="counterLabel"/>
             <VBox fx:id="sentenceVBox" alignment="CENTER">
                 <Label fx:id="sentenceLabel" text="first sentence" wrapText="true"/>
             </VBox>
             <HBox fx:id="correctWrongHBox" visible="false" managed="false" prefWidth="400" alignment="CENTER" spacing="60">
-                <Button text="correct" onMouseClicked="#correct"/>
-                <Button text="wrong" onMouseClicked="#wrong" />
+                <Button fx:id="correctButton" text="correct" onMouseClicked="#correct"/>
+                <Button fx:id="wrongButton" text="wrong" onMouseClicked="#wrong" />
             </HBox>
         </VBox>
         <HBox fx:id="nextPreviousHBox" prefWidth="1000" alignment="CENTER" spacing="60">

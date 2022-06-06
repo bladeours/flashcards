@@ -1,5 +1,9 @@
-.backToMenuButton{
+.root{
+    -fx-new-color:pink;
+}
 
+#rootVBox{
+    -fx-background-color: #efefef;
 }
 
 .flashcardVBox{
@@ -17,10 +21,16 @@
 
 #setNameLabel{
     -fx-font-size: 35;
+    -fx-font-weight: bold;
+    -fx-font-style: italy;
+}
+
+#counterLabel{
+    -fx-font-size: 15;
 }
 
 #sentenceLabel{
-    -fx-font-size: 20;
+    -fx-font-size: 25;
     -fx-padding: 7;
     -fx-text-alignment: center;
 }
@@ -35,10 +45,36 @@
 }
 
 #correctWrongHBox{
+    -fx-pref-width: 70;
+    -fx-pref-height: 30;
+    -fx-text-fill: white;
+}
 
+#correctButton{
+    -fx-background-color: #5dc05d;
+    -fx-border-color: #01b001;
+}
+
+#wrongButton{
+    -fx-background-color: #d76060;
+    -fx-border-color: #de3636;
 }
 
 #sentenceVBox{
     -fx-pref-height: 130;
     -fx-max-height: 130;
+}
+
+.button{
+    -fx-pref-width: 100;
+    -fx-spacing: 150;
+    -fx-pref-height: 50;
+    -fx-background-radius: 0;
+    -fx-background-color: white;
+    -fx-border-radius: 0;
+    -fx-border-color: -fx-new-color;
+}
+
+.button:hover{
+    -fx-border-width: 3;
 }

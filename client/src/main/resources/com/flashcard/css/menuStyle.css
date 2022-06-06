@@ -3,12 +3,33 @@
 }
 
 #leftVBox{
-    -fx-background-color: #ffffff;
+    /*-fx-background-color: red;*/
+    -fx-background-color: linear-gradient(to top, #027cbd, #44a9e8);
+    -fx-alignment: TOP_LEFT;
 }
 
-.button{
-    -fx-pref-width: 180;
+#leftVBox .button{
+    -fx-alignment: CENTER_LEFT;
+    -fx-text-alignment: LEFT;
+    -fx-pref-width: 250;
     -fx-pref-height: 40;
+    -fx-background-color: transparent;
+    -fx-font-size: 25;
+    -fx-text-fill: white;
+}
+
+#leftVBox .button:hover{
+    -fx-background-color: linear-gradient(to right, #f593ff, #f0b4f8);
+    -fx-background-radius: 10 0 0 10;
+
+}
+
+#versionLabel{
+    -fx-padding: 20 20 20 20;
+    -fx-border-width: 2 0 0 0;
+    -fx-border-color: white;
+    -fx-text-fill: white;
+    -fx-font-size: 20;
 }
 
 .scroll-pane > .viewport {
@@ -18,7 +39,7 @@
 #rootRightScrollPane {
     -fx-hbar-policy: NEVER;
     -fx-border-width: 0;
-    -fx-background-color: #837d7d;
+    -fx-background-color: #efefef;
 }
 
 .rowSentenceHBox {
@@ -36,6 +57,11 @@
     -fx-background-color: red;
     -fx-padding: 7;
 }
+.rootSetsVBox:hover {
+   -fx-border-color: #b6b6b6;
+   -fx-border-width: 2;
+    -fx-border-radius: 10;
+}
 
 .setNameLabel{
     -fx-font-size: 25;
@@ -50,5 +76,12 @@
 .setButtons {
     -fx-pref-width: 70;
     -fx-pref-height: 20;
+    -fx-background-color: white;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
+.setButtons:hover {
+    -fx-background-color: #c7c7c7;
 }
 
