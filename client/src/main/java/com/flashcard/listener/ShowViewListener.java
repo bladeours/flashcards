@@ -38,7 +38,7 @@ public class ShowViewListener implements ApplicationListener<ShowViewEvent> {
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root, 1000, 600);
             stage.setScene(scene);
-            stage.setTitle("Hello!");
+            stage.setTitle("Flashcards");
             stage.setScene(scene);
             stage.setResizable(false);
             stage.show();

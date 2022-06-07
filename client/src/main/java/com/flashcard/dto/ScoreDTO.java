@@ -7,6 +7,7 @@ public class ScoreDTO implements Comparable<ScoreDTO> {
     private int scoreFirst;
     private int scoreSecond;
     private int maxScore;
+    private String colorCode;
 
     public int getId() {
         return id;
@@ -30,6 +31,10 @@ public class ScoreDTO implements Comparable<ScoreDTO> {
 
     public int getMaxScore() {
         return maxScore;
+    }
+
+    public String getColorCode() {
+        return colorCode;
     }
 
     @Override

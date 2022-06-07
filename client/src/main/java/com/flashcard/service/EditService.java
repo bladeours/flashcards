@@ -30,47 +30,59 @@ public class EditService {
         System.out.println(flashcards);
         addSentencesVBox.getChildren().clear();
 
-        for(int i=0;i<flashcards.size();i++){
-            Label firstSentenceLabel = new Label("First sentence");
-            firstSentenceLabel.getStyleClass().add("firstSentenceLabel");
+        HBox headerHBox = new HBox();
+        headerHBox.prefWidth(1000);
+        headerHBox.setAlignment(Pos.TOP_CENTER);
+        headerHBox.setSpacing(20);
 
+        Label firstSentenceLabel = new Label("First sentence");
+        Label secondSentenceLabel = new Label("Second sentence");
+
+        headerHBox.getChildren().addAll(firstSentenceLabel,secondSentenceLabel);
+        addSentencesVBox.getChildren().add(headerHBox);
+
+        for (FlashcardDTO flashcard : flashcards) {
 
             TextField firstSentenceTextField = new TextField();
             firstSentenceTextField.getStyleClass().add("firstSentenceTextField");
-            firstSentenceTextField.setText(flashcards.get(i).getFirstSentence());
-
-            Label secondSentenceLabel = new Label("Second sentence");
-            secondSentenceLabel.getStyleClass().add("secondSentenceLabel");
+            firstSentenceTextField.setText(flashcard.getFirstSentence());
 
             TextField secondSentenceTextField = new TextField();
             secondSentenceTextField.getStyleClass().add("secondSentenceTextField");
-            secondSentenceTextField.setText(flashcards.get(i).getSecondSentence());
+            secondSentenceTextField.setText(flashcard.getSecondSentence());
 
             Button removeButton = new Button("X");
+            removeButton.getStyleClass().add("removeButton");
+
             removeButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    Button button = (Button) actionEvent.getSource();
-                    HBox hBox = (HBox) button.getParent();
-                    VBox vBox = (VBox) hBox.getParent();
-                    vBox.getChildren().remove(hBox);
+                   removeRow(actionEvent);
                 }
             });
+
+            HBox smallerHBox =  new HBox();
+            smallerHBox.getStyleClass().add("removeButtonHBox");
 
             HBox hbox = new HBox();
             hbox.setAlignment(Pos.TOP_CENTER);
             hbox.setPrefWidth(1000.0);
-            hbox.getProperties().put("flashcardId",flashcards.get(i).getId());
-            hbox.getChildren().add(firstSentenceLabel);
-            hbox.getChildren().add(firstSentenceTextField);
-            hbox.getChildren().add(secondSentenceLabel);
-            hbox.getChildren().add(secondSentenceTextField);
-            hbox.getChildren().add(removeButton);
+            hbox.getStyleClass().add("sentencesHBox");
+            hbox.getProperties().put("flashcardId", flashcard.getId());
+            smallerHBox.getChildren().addAll(secondSentenceTextField,removeButton);
+            hbox.getChildren().addAll(firstSentenceTextField,smallerHBox);
             addSentencesVBox.getChildren().add(hbox);
         }
 
 
     }
 
+    public void removeRow(ActionEvent actionEvent) {
+        Button button = (Button) actionEvent.getSource();
+        HBox hBox = (HBox) button.getParent();
+        HBox hBoxParent = (HBox) hBox.getParent();
+        VBox vBox = (VBox) hBoxParent.getParent();
+        vBox.getChildren().remove(hBoxParent);
+    }
 
 }

@@ -68,10 +68,6 @@ public class DatabaseController {
             System.out.println("sentences: "+sentences);
 
             session.beginTransaction();
-            //get color id
-//            Query query = session.createQuery("from Color where code =:code ",Color.class)
-//                    .setParameter("code", setJson.get("color").getAsString());
-//            Color color = (Color) query.uniqueResult();
             Color color = session.get(Color.class,setJson.get("color").getAsInt());
 
             Set set = new Set(setJson.get("setName").getAsString(),color);
@@ -101,10 +97,7 @@ public class DatabaseController {
             System.out.println("sentences: "+sentences);
 
             session.beginTransaction();
-            //get color id
-            Query query = session.createQuery("from Color where code =:code ",Color.class)
-                    .setParameter("code", setJson.get("color").getAsString());
-            Color color = (Color) query.uniqueResult();
+            Color color = session.get(Color.class,setJson.get("color").getAsInt());
 
             Set setToEdt = session.get(Set.class,Integer.valueOf(setJson.get("setToEditId").getAsString()));
             setToEdt.setColor(color);
@@ -230,7 +223,8 @@ public class DatabaseController {
 
             for(Score score: scores){
                 scoresDTO.add(new ScoreDTO(score.getId(),score.getSet().getId(),score.getSet().getName(),
-                        score.getScoreFirst(),score.getScoreSecond(), score.getSet().getFlashcards().size()));
+                        score.getScoreFirst(),score.getScoreSecond(), score.getSet().getFlashcards().size(),
+                        score.getSet().getColor().getCode()));
             }
 //            System.out.println(scoresDTO);
             scoresJson = new Gson().toJson(scoresDTO);

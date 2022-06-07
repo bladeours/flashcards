@@ -43,14 +43,19 @@ public class ScoresController {
         System.out.println();
         ArrayList<ScoreDTO> scores = createScoreArrayFromJson(serverConnectionController.getAllScores());
         Collections.sort(scores);
+
         for(ScoreDTO score: scores){
+            System.out.println(score.getColorCode());
+            String color = score.getColorCode();
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.TOP_CENTER);
             Label setName = new Label(score.getSetName());
             setName.getStyleClass().add("setNameLabel");
+            setName.setStyle("-fx-text-fill: " + color + ";");
 
-            Button resetFirstButton = new Button("x");
+            Button resetFirstButton = new Button("X");
             resetFirstButton.getStyleClass().add("resetButton");
+//            resetFirstButton.setStyle("-fx-border-color:  " + color + ";");
             resetFirstButton.setOnMouseClicked(mouseEvent -> {
                 try {
                     serverConnectionController.resetFirstScore(score.getSetId());
@@ -64,12 +69,16 @@ public class ScoresController {
 
             Label firstScore = new Label(score.getScoreFirst() + "/" + score.getMaxScore());
             firstScore.getStyleClass().add("firstScoreLabel");
+            firstScore.setStyle("-fx-text-fill: " + color + ";");
 
             Label secondScore = new Label(score.getScoreSecond() + "/" + score.getMaxScore());
             secondScore.getStyleClass().add("secondScoreLabel");
+            secondScore.setStyle("-fx-text-fill: " + color + ";");
 
-            Button resetSecondButton = new Button("x");
+            Button resetSecondButton = new Button("X");
             resetSecondButton.getStyleClass().add("resetButton");
+            resetSecondButton.hoverProperty();
+
             resetSecondButton.setOnMouseClicked(mouseEvent -> {
                 try {
                     serverConnectionController.resetSecondScore(score.getSetId());

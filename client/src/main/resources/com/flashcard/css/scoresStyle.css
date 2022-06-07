@@ -1,5 +1,16 @@
 #backToMenuHBox{
-    -fx-padding: 10;
+    -fx-padding: 30;
+}
+
+#backToMenuHBox .button{
+   -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-border-color: gray;
+}
+
+#backToMenuHBox .button:hover{
+    -fx-background-color: #a2a2a2;
 }
 
 #scoresLabel{
@@ -56,4 +67,13 @@
 
 .resetButton{
     -fx-padding: 10;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-border-color: black;
 }
+
+.resetButton:hover {
+    -fx-background-color: gray;
+}
+

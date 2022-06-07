@@ -1,6 +1,8 @@
 package com.flashcard.controller;
 
 import com.flashcard.dto.ColorDTO;
+import com.flashcard.dto.ScoreDTO;
+import com.flashcard.dto.SetDTO;
 import com.flashcard.event.ShowViewEvent;
 import com.flashcard.listener.ShowViewListener;
 import com.flashcard.service.EditService;
@@ -8,6 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,15 +23,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 @Component
@@ -53,6 +55,7 @@ public class CreateSetController implements Initializable {
     private boolean edit = false;
     private int setToEditId;
     private int colorId = 1;
+    private ArrayList<ColorDTO> colors;
 
 
     public CreateSetController(ShowViewListener showViewListener, ServerConnectionController serverConnectionController,
@@ -66,7 +69,7 @@ public class CreateSetController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ArrayList<ColorDTO> colors = null;
+        colors = null;
         try {
             colors = serverConnectionController.getColors();
         } catch (IOException e) {
@@ -128,11 +131,25 @@ public class CreateSetController implements Initializable {
 
     @FXML
     public void saveSet() throws IOException {
-
-        String setName = setNameTextField.getText();
-//        String color = colorComboBox.getValue();
-        int color = colorId;
         Gson gson = new Gson();
+        String setName = setNameTextField.getText();
+        Type setsListType = new TypeToken<ArrayList<SetDTO>>(){}.getType();
+        ArrayList<SetDTO> sets = gson.fromJson(serverConnectionController.getSets(),setsListType);
+        boolean theSameName = false;
+        for(SetDTO set: sets){
+            if(set.getName().equals(setName) && !edit){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning!");
+                alert.setHeaderText("Illegal argument");
+                alert.setContentText("There is already set with name " + setName);
+                alert.showAndWait();
+                theSameName = true;
+                break;
+            }
+        }
+
+        int color = colorId;
+
         JsonObject setJson = new JsonObject();
         setJson.addProperty("setName",setName);
         setJson.addProperty("color",color);
@@ -145,32 +162,29 @@ public class CreateSetController implements Initializable {
         Map<String,String> OneSentences = new HashMap<>();
         ArrayList<Map<String,String>> AllSentences = new ArrayList<>();
 
-        boolean dontSend = addSentencesVBox.getChildren().size() == 0;
-
+        boolean dontSend = addSentencesVBox.getChildren().size() == 1;
+        System.out.println(dontSend);
         for(Node node: addSentencesVBox.getChildren()){
-            HBox hBox = (HBox) node;
-
-            for(Node hboxChildren: hBox.getChildren()){
-                if(hboxChildren.getClass().equals(TextField.class)){
-                    if(((TextField) hboxChildren).getText().equals("")){
-                        dontSend = true;
-                        break;
+            if (node.getStyleClass().contains("sentencesHBox")){
+                 HBox hBox = (HBox) node;
+                for(Node children: hBox.getChildren()){
+                    if(children.getStyleClass().contains("firstSentenceTextField")){
+                        if(((TextField) children).getText().equals("")) dontSend = true;
+                        OneSentences.put("firstSentence",((TextField) children).getText());
                     }
-                    if(hboxChildren.getStyleClass().contains("firstSentenceTextField")){
-
-                        OneSentences.put("firstSentence",((TextField) hboxChildren).getText());
+                    if(children.getStyleClass().contains("removeButtonHBox")){
+                        HBox removeButtonHBox = (HBox) children;
+                        if(((TextField)  removeButtonHBox.getChildren().get(0)).getText().equals("")) dontSend = true;
+                        OneSentences.put("secondSentence",((TextField)  removeButtonHBox.getChildren().get(0)).getText());
                     }
-                    if(hboxChildren.getStyleClass().contains("secondSentenceTextField")){
-                        OneSentences.put("secondSentence",((TextField) hboxChildren).getText());
-                    }
-
                 }
+                if(edit){
+                    OneSentences.put("flashcardId",String.valueOf(hBox.getProperties().get("flashcardId")));
+                }
+                AllSentences.add(new HashMap<>(OneSentences));
+                OneSentences.clear();
             }
-            if(edit){
-                OneSentences.put("flashcardId",String.valueOf(hBox.getProperties().get("flashcardId")));
-            }
-            AllSentences.add(new HashMap<>(OneSentences));
-            OneSentences.clear();
+
         }
 
         String allSentencesJson = gson.toJson(AllSentences,ArrayList.class);
@@ -178,14 +192,15 @@ public class CreateSetController implements Initializable {
 
         setJson.add("sentences",jsonElement);
         System.out.println(setJson);
-
-        if(dontSend || setNameTextField.getText().equals("") ){
+//        System.out.println(dontSend);
+        if((dontSend || setNameTextField.getText().equals("")) && !theSameName ){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning!");
             alert.setHeaderText("Illegal argument");
             alert.setContentText("No field can be empty!");
             alert.showAndWait();
-        }else{
+        }else if(!theSameName){
+
             serverConnectionController.sendNewSet(setJson.toString());
             backToMenu();
 
@@ -204,7 +219,11 @@ public class CreateSetController implements Initializable {
 
     public void createEditLayout(int setId, String name, String color) throws IOException {
         setNameTextField.setText(name);
-//        colorComboBox.setValue(color);
+        for(ColorDTO tempColor: colors){
+            if(tempColor.getCode().equals(color)){
+                       root.setStyle("-fx-new-color:"+ tempColor.getCode() +";");
+            }
+        }
         editService.addSentencesToLayout(addSentencesVBox, setId);
     }
 
