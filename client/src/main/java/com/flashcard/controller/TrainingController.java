@@ -45,7 +45,6 @@ public class TrainingController implements Initializable {
     public TrainingController(ShowViewListener stageListener, ServerConnectionController serverConnectionController) {
         this.showViewListener = stageListener;
         this.serverConnectionController = serverConnectionController;
-        System.out.println("TrainingController constructor");
 
     }
 
@@ -126,7 +125,6 @@ public class TrainingController implements Initializable {
                 serverConnectionController.updateCorrectSentence("second",flashcards.get(sentenceNumber).getId());
 
             }
-            System.out.println(flashcards);
             if (sentenceNumber < flashcards.size()-1){
                 nextSentence();
             }

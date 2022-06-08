@@ -40,12 +40,10 @@ public class ScoresController {
     }
 
     public void createScoreView() throws IOException {
-        System.out.println();
         ArrayList<ScoreDTO> scores = createScoreArrayFromJson(serverConnectionController.getAllScores());
         Collections.sort(scores);
 
         for(ScoreDTO score: scores){
-            System.out.println(score.getColorCode());
             String color = score.getColorCode();
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.TOP_CENTER);

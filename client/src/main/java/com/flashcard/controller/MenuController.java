@@ -48,7 +48,6 @@ public class MenuController implements Initializable {
         this.createSetController = createSetController;
         this.scoresController = scoresController;
         this.stageListener = stageListener;
-        System.out.println("MenuController constructor");
         this.serverConnectionController = serverConnectionController;
     }
 

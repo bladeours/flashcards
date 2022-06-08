@@ -1,17 +1,8 @@
 package com.flashcard;
 
-import com.flashcard.entity.Flashcard;
-import com.flashcard.entity.Score;
-import com.flashcard.entity.Set;
-import com.flashcard.entity.User;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.List;
 
 public class Main {
     public static void main(String[] argv){

@@ -6,14 +6,21 @@ import com.flashcard.dto.FlashcardDTO;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.net.ConnectException;
 import java.net.Socket;
+import java.net.SocketException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 @Service
 public class ServerConnectionController {
@@ -22,19 +29,14 @@ public class ServerConnectionController {
     private BufferedWriter bw;
     private BufferedReader br;
     private int i = 0;
+    boolean connected = false;
 
-    public ServerConnectionController() {
-        System.out.println("ServerConnectionController constructor");
-        try {
+    public ServerConnectionController() throws IOException {
+        try{
             socket = new Socket("localhost",7080);
             bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            System.out.println("Connected properly");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            //TODO handle connection error
-        }
+        }catch (ConnectException ignore){}
 
     }
 
@@ -64,9 +66,21 @@ public class ServerConnectionController {
 
 
     private void sendToServer(BufferedWriter bw,String request) throws IOException {
-        bw.write(request);
-        bw.newLine();
-        bw.flush();
+            try{
+                bw.write(request);
+                bw.newLine();
+                bw.flush();
+                connected = true;
+            }catch (RuntimeException | SocketException e){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning!");
+                alert.setHeaderText("Can't connect to the server");
+                alert.setContentText("Check your connection");
+                alert.showAndWait();
+                System.exit(1);
+        }
+
+
     }
 
     public ArrayList<FlashcardDTO> getFlashcardsForSet(String id) throws IOException {
@@ -120,4 +134,5 @@ public class ServerConnectionController {
         request.addProperty("setId",setId);
         sendToServer(bw,request.toString());
     }
+
 }

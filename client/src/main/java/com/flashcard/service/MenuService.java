@@ -41,7 +41,6 @@ public class MenuService {
         this.serverConnectionController = serverConnectionController;
         this.trainingController = trainingController;
         this.stageListener = stageListener;
-        System.out.println("MenuService constructor");
     }
 
     public void setPane(Pane root) {
@@ -102,7 +101,6 @@ public class MenuService {
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK){
-                    System.out.println("usuwam set o id "+ id);
                     try {
                         serverConnectionController.removeSet(id);
                         refreshSetTiles();

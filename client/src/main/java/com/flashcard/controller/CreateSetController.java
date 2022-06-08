@@ -63,7 +63,6 @@ public class CreateSetController implements Initializable {
         this.showViewListener = showViewListener;
         this.serverConnectionController = serverConnectionController;
         this.editService = editService;
-        System.out.println("CreateSetController constructor");
     }
 
 
@@ -163,7 +162,6 @@ public class CreateSetController implements Initializable {
         ArrayList<Map<String,String>> AllSentences = new ArrayList<>();
 
         boolean dontSend = addSentencesVBox.getChildren().size() == 1;
-        System.out.println(dontSend);
         for(Node node: addSentencesVBox.getChildren()){
             if (node.getStyleClass().contains("sentencesHBox")){
                  HBox hBox = (HBox) node;
@@ -191,8 +189,6 @@ public class CreateSetController implements Initializable {
         JsonElement jsonElement = JsonParser.parseString(allSentencesJson).getAsJsonArray();
 
         setJson.add("sentences",jsonElement);
-        System.out.println(setJson);
-//        System.out.println(dontSend);
         if((dontSend || setNameTextField.getText().equals("")) && !theSameName ){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning!");

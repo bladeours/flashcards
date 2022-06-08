@@ -27,7 +27,6 @@ public class DatabaseController {
                 .configure()
                 .addAnnotatedClass(Score.class)
                 .addAnnotatedClass(Set.class)
-                .addAnnotatedClass(User.class)
                 .addAnnotatedClass(Flashcard.class)
                 .addAnnotatedClass(Color.class)
                 .buildSessionFactory();
@@ -65,7 +64,6 @@ public class DatabaseController {
             JsonElement sentencesJson = setJson.get("sentences");
             Type type = new TypeToken<ArrayList<Map<String,String>>>(){}.getType();
             ArrayList<Map<String,String>> sentences = new Gson().fromJson(sentencesJson,type);
-            System.out.println("sentences: "+sentences);
 
             session.beginTransaction();
             Color color = session.get(Color.class,setJson.get("color").getAsInt());
@@ -94,7 +92,6 @@ public class DatabaseController {
             JsonElement sentencesJson = setJson.get("sentences");
             Type type = new TypeToken<ArrayList<Map<String,String>>>(){}.getType();
             ArrayList<Map<String,String>> sentences = new Gson().fromJson(sentencesJson,type);
-            System.out.println("sentences: "+sentences);
 
             session.beginTransaction();
             Color color = session.get(Color.class,setJson.get("color").getAsInt());
@@ -105,13 +102,11 @@ public class DatabaseController {
 
             int flashcardId;
             for(Map<String, String> sentence : sentences) {
-                System.out.println(sentence.get("flashcardId"));
                 if(!sentence.get("flashcardId").equals("null")){
                     flashcardId = Integer.parseInt(sentence.get("flashcardId"));
                     Flashcard flashcardToEdit = session.get(Flashcard.class,flashcardId);
                     flashcardToEdit.setFirstSentence(sentence.get("firstSentence"));
                     flashcardToEdit.setSecondSentence(sentence.get("secondSentence"));
-                    System.out.println("flashcard to edit" + flashcardToEdit);
                 }else{
                     Flashcard flashcardNew = new Flashcard(setToEdt,sentence.get("firstSentence"),
                         sentence.get("secondSentence"));
@@ -226,9 +221,7 @@ public class DatabaseController {
                         score.getScoreFirst(),score.getScoreSecond(), score.getSet().getFlashcards().size(),
                         score.getSet().getColor().getCode()));
             }
-//            System.out.println(scoresDTO);
             scoresJson = new Gson().toJson(scoresDTO);
-            System.out.println(scoresJson);
             session.getTransaction().commit();
 
 

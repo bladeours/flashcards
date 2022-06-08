@@ -27,7 +27,6 @@ public class EditService {
     public void addSentencesToLayout(VBox addSentencesVBox, int setId) throws IOException {
 
         ArrayList<FlashcardDTO> flashcards = serverConnectionController.getFlashcardsForSet(String.valueOf(setId));
-        System.out.println(flashcards);
         addSentencesVBox.getChildren().clear();
 
         HBox headerHBox = new HBox();

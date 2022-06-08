@@ -10,9 +10,6 @@ public class Score {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "score_generator")
     @Column(name="id")
     private int id;
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.PERSIST,CascadeType.DETACH,CascadeType.REFRESH})
-    @JoinColumn(name="user_id")
-    private User user;
     @Column(name="score_first")
     private int scoreFirst;
     @Column(name="score_second")
@@ -24,18 +21,11 @@ public class Score {
     public Score() {
     }
 
-    public Score(int userId, int scoreFirst, int scoreSecond, int setId) {
+    public Score( int scoreFirst, int scoreSecond) {
         this.scoreFirst = scoreFirst;
         this.scoreSecond = scoreSecond;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public Set getSet() {
         return set;

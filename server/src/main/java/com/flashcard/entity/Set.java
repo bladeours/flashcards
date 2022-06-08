@@ -22,9 +22,6 @@ public class Set {
             cascade = {CascadeType.ALL})
     private List<Score> scores;
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.PERSIST,CascadeType.DETACH,CascadeType.REFRESH})
-    @JoinColumn(name="user_id")
-    private User user;
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.PERSIST,CascadeType.DETACH,CascadeType.REFRESH})
     @JoinColumn(name="color_id")
     private Color color;
 
@@ -71,14 +68,6 @@ public class Set {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public Color getColor() {
