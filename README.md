@@ -4,8 +4,8 @@ Simple app that helps you study languages.
 * [General Info](#general-info)
 * [Technologies Used](#technologies-used)
 * [Setup](#setup)
+* [Database](#database)
 * [First Steps](#first-steps)
-* [Room for Improvement](#room-for-improvement)
 
 ## General Info
 Flashcard is a university project but also helps me to better understand Spring, Hibernate and client-server architecture.
@@ -24,33 +24,39 @@ can easily create new set, change languages, check your score and personalize yo
 ## Setup
 **You can [download it here](https://github.com/bladeours/homeBudget/releases/tag/v0.0.1)**
 <br>
-In package is whole Java 17, so you don't have to worry about installing right version of Java. All you have to do it unzip downloaded file and run `homeBudget.exe`.
+After downloading and unzip you will see two folders `client` and `server`.
 <br>
-At this moment there is only version for Windows but in the near future I'll add Linux support.
+All you have to do is open terminal, go to server folder and run `java -jar serverFlashcard.jar`. After that you can go
+to client folder and run `Flashcard.exe`.
 
+## Database
+In this project I'm using postgreSQL as my database, you can [download](https://github.com/bladeours/homeBudget/releases/tag/v0.0.1) script to create all tables.
+Also, here is database structure:
+<br>
+![database.png](img/database.png)
 ## First steps
-**Remove sample data:**
+
+**Rules:**
 <br>
-1. Click big checkbox in the header of Purchases or Incomes Table
-2. Go to purchases/incomes menu
-3. Click remove purchase/income
+After clicking on set and choosing language you will see rectangle with sentence. You can check translate by
+clicking on rectangle then you can choose if you knew it or not. Sets are shuffled and sentence where you choose
+`correct` will not be visible until you reset score in `Score` view.
 
-**Add new shop**
+
+
+**Create new set:**
 <br>
-* Just write name of the new shop in "New shop" text-field, this text-field has bigger priority than list with shops.
-
-![img.png](img/img.png)
-
-
+Just click `Create new`, under set name you can pick color of your set.
+<br>
+No field can be empty and set name has to be unique.
 
 
-## Room for Improvement
-**To do:**
-* Add more statistics.
-* Add status of gas, water and electricity maters.
-* Add exporting to CSV.
-* Add possibility to change currency.
-* Add support for different years.
+**Reset score:**
+<br>
+You can reset score for language in `Score` view then by clicking `X` button next to
+your score.
+
+
 
 
 

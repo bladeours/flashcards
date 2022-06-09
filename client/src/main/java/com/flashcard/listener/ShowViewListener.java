@@ -5,6 +5,7 @@ import com.flashcard.event.ShowViewEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -17,16 +18,15 @@ import java.io.IOException;
 @Component
 public class ShowViewListener implements ApplicationListener<ShowViewEvent> {
 
-    private final Resource fxml;
+//    private final Resource fxml;
 
 
 
     private final ApplicationContext applicationContext;
 
 
-    public ShowViewListener(@Value("/com/flashcard/view/menuView.fxml") Resource resource, ApplicationContext ac) {
+    public ShowViewListener(ApplicationContext ac) {
         this.applicationContext = ac;
-        this.fxml = resource;
     }
 
     @Override
@@ -37,6 +37,7 @@ public class ShowViewListener implements ApplicationListener<ShowViewEvent> {
             fxmlLoader.setControllerFactory(applicationContext::getBean);
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root, 1000, 600);
+            stage.getIcons().add(new Image("file:flashcard.png"));
             stage.setScene(scene);
             stage.setTitle("Flashcards");
             stage.setScene(scene);
