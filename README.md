@@ -22,15 +22,19 @@ can easily create new set, change languages, check your score and personalize yo
 * Gson
 
 ## Setup
-**You can [download it here](https://github.com/bladeours/homeBudget/releases/tag/v0.0.1)**
+**You can [download it here](https://github.com/bladeours/flashcards/releases)**
 <br>
 After downloading and unzip you will see two folders `client` and `server`.
 <br>
 All you have to do is open terminal, go to server folder and run `java -jar serverFlashcard.jar`. After that you can go
 to client folder and run `Flashcard.exe`.
+<br>
+I needed to add some VM options in Intellij to properly run this program:
+<br>
+`--add-modules=ALL-SYSTEM --add-opens=com.flashcard/com.flashcard=ALL-UNNAMED --add-opens=com.flashcard/com.flashcard=spring.core --add-opens=com.flashcard/com.flashcard.controller=spring.core`
 
 ## Database
-In this project I'm using postgreSQL as my database, you can [download](https://github.com/bladeours/homeBudget/releases/tag/v0.0.1) script to create all tables.
+In this project I'm using postgreSQL as my database, you can [download](https://github.com/bladeours/flashcards/releases) script to create all tables.
 Also, here is database structure:
 <br>
 ![database.png](img/database.png)
