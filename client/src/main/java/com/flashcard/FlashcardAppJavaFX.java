@@ -32,12 +32,12 @@ public class FlashcardAppJavaFX extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         this.context.publishEvent(new ShowViewEvent(primaryStage,"/com/flashcard/view/menuView.fxml"));
 
     }
     @Override
-    public void stop() throws Exception {
+    public void stop() {
         this.context.stop();
         Platform.exit();
     }

@@ -17,5 +17,6 @@ module com.flashcard {
     opens com.flashcard.dto to com.google.gson;
     exports com.flashcard.listener;
     opens com.flashcard.listener to javafx.fxml;
+    opens com.flashcard to spring.core;
     exports com.flashcard.service;
 }

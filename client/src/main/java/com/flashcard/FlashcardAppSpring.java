@@ -11,3 +11,9 @@ public class FlashcardAppSpring {
 	}
 
 }
+
+//TODO add tests
+//TODO add language to set
+//TODO if "wrong" is clicked then point will be subtracted
+//TODO add logging
+//TODO bug after removing last sentenceHBOX in createSet view (EDIT view)

@@ -25,15 +25,13 @@ import java.util.ResourceBundle;
 @Service
 public class ServerConnectionController {
 
-    private Socket socket;
     private BufferedWriter bw;
     private BufferedReader br;
-    private int i = 0;
     boolean connected = false;
 
     public ServerConnectionController() throws IOException {
         try{
-            socket = new Socket("localhost",7080);
+            Socket socket = new Socket("localhost", 7080);
             bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         }catch (ConnectException ignore){}
